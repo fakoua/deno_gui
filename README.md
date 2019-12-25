@@ -1,2 +1,2 @@
-# deno_gui
+# Deno GUI
 Deno Web GUI
