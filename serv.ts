@@ -40,6 +40,6 @@ router
 const app = new Application();
 app.use(router.routes());
 app.use(router.allowedMethods());
-
-await app.listen("127.0.0.1:8080")
+console.log('open  http://localhost:8080')
+await app.listen("localhost:8080")
 
