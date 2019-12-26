@@ -103,20 +103,18 @@ export const _layout_template = `
             </nav>
         </div>
         <ul id="sidenav-left" class="sidenav sidenav-fixed" style="transform: translateX(0px);">
-            <li><a href="/" class="logo-container">Deno GUI<i class="material-icons left">spa</i></a>
+            <li><a href="/" class="logo-container">Deno GUI<i class="material-icons left">dehaze</i></a>
             </li>
-            <li><a href="#" data-route="dashboard" class="waves-effect active">Dashboard<i class="material-icons">web</i></a></li>
-            <li><a href="#" data-route="console" class="waves-effect active">Console<i class="material-icons">web</i></a></li>
+            <li><a href="#" data-route="dashboard" class="waves-effect active">Dashboard<i class="material-icons">computer</i></a></li>
+            <li><a href="#" data-route="console" class="waves-effect active">Console<i class="material-icons">remove_from_queue</i></a></li>
             <li>
                 <ul class="collapsible">
                     <li class="bold waves-effect">
                     <a style="padding-left:32px;" class="collapsible-header" tabindex="0">Deno Caches<i class="material-icons">chevron_right</i></a>
                         <div class="collapsible-body">
                             <ul>
-                                <li><a href="#" data-route="dashboard" class="waves-effect active">Dashboard<i
-                                            class="material-icons">web</i></a></li>
-                                <li><a href="/pages/admin-fixed-chart" class="waves-effect">Fixed Chart<i
-                                            class="material-icons">list</i></a></li>
+                                <li><a href="#" data-route="depscaches" class="waves-effect active">Remote Caches<i class="material-icons">router</i></a></li>
+                                <li><a href="#" data-route="gencaches" class="waves-effect">TypeScript Caches<i class="material-icons">cached</i></a></li>
                             </ul>
                         </div>
                     </li>
@@ -155,7 +153,7 @@ export const _layout_template = `
                 .then((res) => {
                     $('#container').html(res.data.body)
                     eval(res.data.onAfterRender)
-                    inlineScript()
+                    inlineScript(); inlineScript = function() {}
                 })
                 .finally(() => {
 

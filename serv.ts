@@ -1,7 +1,6 @@
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
-//import {template} from "./views/home/dashboard.ts"
+import * as utils from './utils.ts'
 import * as controllers from './controllers.ts'
-import startCase from 'https://deno.land/x/lodash/startCase.js'
 
 import {_layout_template} from './views/_shared/_layout.ts'
 import { css } from './views/_shared/_layout.css.ts'
@@ -24,16 +23,23 @@ router
   })
 
   .get("/render/:com", async (context) => {
-    let action = startCase(context.params.com)
-    let model = controllers['get' + action]()
+    let model = controllers.getModel(context.params.com)
     let result = await renderAsync(context.params.com, model);
     context.response.headers.set("Content-Type", "application/json")
     context.response.body = result
   })
+
+  .get("/api/deletefolder/:folder", async (context) => {
+    let result = await utils.deleteFolder(context.params.folder)
+    context.response.headers.set("Content-Type", "application/json")
+    context.response.body = result
+  })
+
   
 
 const app = new Application();
 app.use(router.routes());
 app.use(router.allowedMethods());
 
-await app.listen("127.0.0.1:8080");
+await app.listen("127.0.0.1:8080")
+

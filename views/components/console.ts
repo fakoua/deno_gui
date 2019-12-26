@@ -31,7 +31,6 @@ inlineScript = function() {
         }
     });
     term.onLineFeed(e => {
-        console.log(e);
     });
 
     term.onData(e => {
