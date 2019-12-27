@@ -1,165 +1,114 @@
 export const _layout_template = `
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
-    <meta charset="utf-8">
-    <title>Deno Gui</title>
-    <meta name="description" content="Deno user interface">
-    <meta name="author" content="Sameh Fakoua">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.min.css" integrity="sha256-uTIrmf95e6IHlacC0wpDaPS58eWF314UC7OgdrD6AdU=" crossorigin="anonymous" />
-    <style>
-        @@CSS@@
-    </style>
+  <meta charset="utf-8" />
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2, user-scalable=no" />
+  <meta name="description" content="Deno user interface" />
+  <meta name="author" content="Sameh Fakoua" />
+  <meta name="theme-color" content="#ffffff" />
+  <title>Deno GUI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+    type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.min.css"
+    integrity="sha256-uTIrmf95e6IHlacC0wpDaPS58eWF314UC7OgdrD6AdU=" crossorigin="anonymous" />
+  <style type="text/css">
+    /*@@CSS@@*/
+  </style>
 </head>
 
-<body class="has-fixed-sidenav">
-    <header>
-        <div class="navbar-fixed">
-            <nav class="navbar white">
-                <div class="nav-wrapper"><a href="#!" class="brand-logo grey-text text-darken-4">Home</a>
-                    <ul id="nav-mobile" class="right">
-                        <li class="hide-on-med-and-down"><a href="#!" data-target="dropdown1"
-                                class="dropdown-trigger waves-effect"><i class="material-icons">notifications</i></a>
-                            <div id="dropdown1" class="dropdown-content notifications" tabindex="0">
-                                <div class="notifications-title" tabindex="0">notifications</div>
-                                <div class="card" tabindex="0">
-                                    <div class="card-content"><span class="card-title">Joe Smith made a purchase</span>
-                                        <p>Content</p>
-                                    </div>
-                                    <div class="card-action"><a href="#!">view</a><a href="#!">dismiss</a></div>
-                                </div>
-                                <div class="card" tabindex="0">
-                                    <div class="card-content"><span class="card-title">Daily Traffic Update</span>
-                                        <p>Content</p>
-                                    </div>
-                                    <div class="card-action"><a href="#!">view</a><a href="#!">dismiss</a></div>
-                                </div>
-                                <div class="card" tabindex="0">
-                                    <div class="card-content"><span class="card-title">New User Joined</span>
-                                        <p>Content</p>
-                                    </div>
-                                    <div class="card-action"><a href="#!">view</a><a href="#!">dismiss</a></div>
-                                </div>
-                            </div>
-                        </li>
-                        <li><a href="#!" data-target="chat-dropdown" class="dropdown-trigger waves-effect"><i
-                                    class="material-icons">settings</i></a>
-                            <div id="chat-dropdown" class="dropdown-content dropdown-tabbed" tabindex="0">
-                                <ul class="tabs tabs-fixed-width" tabindex="0">
-                                    <li class="tab col s3"><a href="#settings">Settings</a></li>
-                                    <li class="tab col s3"><a href="#friends" class="active">Friends</a></li>
-                                    <li class="indicator" style="left: 0px; right: 0px;"></li>
-                                </ul>
-                                <div id="settings" class="col s12" tabindex="0" style="display: none;">
-                                    <div class="settings-group">
-                                        <div class="setting">Night Mode
-                                            <div class="switch right">
-                                                <label>
-                                                    <input type="checkbox"><span class="lever"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <div class="setting">Beta Testing
-                                            <label class="right">
-                                                <input type="checkbox"><span></span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="friends" class="col s12 active" tabindex="0">
-                                    <ul class="collection flush">
-                                        <li class="collection-item avatar">
-                                            <div class="badged-circle online"><img
-                                                    src="//cdn.shopify.com/s/files/1/1775/8583/t/1/assets/portrait1.jpg?100"
-                                                    alt="avatar" class="circle"></div><span class="title">Jane
-                                                Doe</span>
-                                            <p class="truncate">Lo-fi you probably haven't heard of them</p>
-                                        </li>
-                                        <li class="collection-item avatar">
-                                            <div class="badged-circle"><img
-                                                    src="//cdn.shopify.com/s/files/1/1775/8583/t/1/assets/portrait2.jpg?100"
-                                                    alt="avatar" class="circle"></div><span class="title">John
-                                                Chang</span>
-                                            <p class="truncate">etsy leggings raclette kickstarter four dollar toast</p>
-                                        </li>
-                                        <li class="collection-item avatar">
-                                            <div class="badged-circle"><img
-                                                    src="//cdn.shopify.com/s/files/1/1775/8583/t/1/assets/portrait3.jpg?100"
-                                                    alt="avatar" class="circle"></div><span class="title">Lisa
-                                                Simpson</span>
-                                            <p class="truncate">Raw denim fingerstache food truck chia health goth synth
-                                            </p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    </ul><a href="#!" data-target="sidenav-left" class="sidenav-trigger left"><i
-                            class="material-icons black-text">menu</i></a>
-                </div>
-            </nav>
+<body id="root">
+  <div class="ui tablet computer only padded grid">
+    <div class="ui inverted borderless top fixed fluid menu">
+      <a data-route="dashboard" class="header item">Deno GUI</a>
+    </div>
+  </div>
+  <div class="ui mobile only padded grid">
+    <div class="ui top fixed borderless fluid inverted menu">
+      <a data-route="dashboard" class="header item">Deno GUI</a>
+      <div class="right menu">
+        <div class="item">
+          <button class="ui icon toggle basic inverted button">
+            <i class="content icon"></i>
+          </button>
         </div>
-        <ul id="sidenav-left" class="sidenav sidenav-fixed" style="transform: translateX(0px);">
-            <li><a href="/" class="logo-container">Deno GUI<i class="material-icons left">dehaze</i></a>
-            </li>
-            <li><a href="#" data-route="dashboard" class="waves-effect active">Dashboard<i class="material-icons">computer</i></a></li>
-            <li><a href="#" data-route="console" class="waves-effect active">Console<i class="material-icons">remove_from_queue</i></a></li>
-            <li>
-                <ul class="collapsible">
-                    <li class="bold waves-effect">
-                    <a style="padding-left:32px;" class="collapsible-header" tabindex="0">Deno Caches<i class="material-icons">chevron_right</i></a>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="#" data-route="depscaches" class="waves-effect active">Remote Caches<i class="material-icons">router</i></a></li>
-                                <li><a href="#" data-route="gencaches" class="waves-effect">TypeScript Caches<i class="material-icons">cached</i></a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-    </header>
-    <main>
-        <div class='container' id='container'>
-        Main
+      </div>
+      <div class="ui vertical borderless inverted fluid menu">
+        <a data-route="dashboard" class="item">Dashboard</a>
+        <a data-route="console" class="item">Terminal</a>
+        <div class="ui fitted divider"></div>
+        <a data-route="depscaches" class="item">Remote Deps Cache</a>
+        <a data-route="gencaches" class="item">TypeScript Cache</a>
+        <div class="ui fitted divider"></div>
+        <a data-route="about" class="item">About</a>
+      </div>
+    </div>
+  </div>
+  <div class="ui padded grid">
+    <div class="three wide tablet only two wide computer only column" id="sidebar">
+      <div class="ui vertical borderless fluid text menu">
+        <a data-route="dashboard" class="active item">Dashboard</a>
+        <a data-route="console" class="item">Terminal</a>
+        <div class="ui hidden divider"></div>
+        <a data-route="depscaches" class="item">Remote Deps Cache</a>
+        <a data-route="gencachesremote" class="item">TypeScript Cache <small>remote</small></a>
+        <a data-route="gencacheslocal" class="item">TypeScript Cache <small>local</small></a>
+        <a data-route="about" class="item">About</a>
+      </div>
+    </div>
+    <div class="sixteen wide mobile thirteen wide tablet thirteen wide computer right floated column" id="content">
+      <div class="ui padded grid">
+        <div class="row">
+          <div class="column">
+            <div class="ui raised segment">
+              <span class="ui red ribbon label" id='title'>Deno GUI</span>
+              <div id='container'>Loading ...</div>
+            </div>
+          </div>
         </div>
-    </main>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"
-        integrity="sha256-U/cHDMTIHCeMcvehBv1xQ052bPSbJtbuiw4QA9cTKz0=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"
-        integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.min.js" integrity="sha256-tDeULIXIGkXbz7dkZ0qcQajBIS22qS8jQ6URaeMoVJs=" crossorigin="anonymous"></script>
-    <script>
-        let inlineScript = function() {};
-        $(document).ready(() => {
-            $('.collapsible').collapsible();
-            $('a[data-route]').click((e) => {
-                e.preventDefault();
-                let route = $(e.target).data('route')
-                renderComponent(route);
-            })
-        });
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"
+    integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.min.js"
+    integrity="sha256-tDeULIXIGkXbz7dkZ0qcQajBIS22qS8jQ6URaeMoVJs=" crossorigin="anonymous"></script>
+  <script>
+    let inlineScript = function () {};
+    $(document).ready(() => {
+      $(".ui.toggle.button").click(function () {
+        $(".mobile.only.grid .ui.vertical.menu").toggle(100);
+      });
+      renderComponent('dashboard');
+      $('a[data-route]').click((e) => {
+        e.preventDefault();
+        $('a[data-route]').removeClass('active')
+        let route = $(e.currentTarget).data('route')
+        $('a[data-route=' + route + ']').addClass('active')
+        renderComponent(route);
+      })
+    });
 
-        function renderComponent(com) {
-            let preLoader = '<div class="progress"><div class="indeterminate"></div></div>';
-            $('#container').html(preLoader)
-            axios.get('/render/' + com)
-                .then((res) => {
-                    $('#container').html(res.data.body)
-                    eval(res.data.onAfterRender)
-                    inlineScript(); inlineScript = function() {}
-                })
-                .finally(() => {
+    function renderComponent(com) {
+      let preLoader = '<div class="ui loader active"></div>';
+      $('#container').append(preLoader)
+      axios.get('/render/' + com)
+        .then((res) => {
+          $('#title').html(res.data.title)
+          $('#container').html(res.data.body)
+          eval(res.data.onAfterRender)
+          inlineScript();
+          inlineScript = function () {}
+        })
+        .finally(() => {
 
-                })
-        }
-    </script>
+        })
+    }
+  </script>
 </body>
 
 </html>

@@ -13,7 +13,7 @@ export async function renderAsync(view: string, model: any): Promise<ViewData> {
         let sw = new StringWriter();
         await copy(sw, output)
         let result: ViewData = {
-            title: view,
+            title: template.title,
             onBeforeRender: template.onBeforeRender,
             onAfterRender: template.onAfterRender,
             body: sw.toString()
@@ -26,6 +26,7 @@ export async function renderAsync(view: string, model: any): Promise<ViewData> {
             onAfterRender: '',
             body: 'Not Found Or Internal Error.'
         }
+        console.log(error)
         return result
     }
 }

@@ -1,38 +1,69 @@
+export const title = 'Dashboard'
 export const body = `
-<div class="row">
-      <div class="col s8">
-        <div class="card-panel black-text white">
-           <table>
-            <tr>
-                <td class="text-bold" width="160px">Host:</td><td><%=hostname%></td>
-            </tr>
-            <tr>
-                <td class="text-bold">Operating System:</td><td><%=os%></td>
-            </tr>
-            <tr>
-                <td class="text-bold">Architecture:</td><td><%=arch%></td>
-            </tr>
-            <tr>
-                <td class="text-bold">Current Path:</td><td><%=currentPath%></td>
-            </tr>
-            <tr>
-                <td class="text-bold">Home Directory:</td><td><%=homeDir%></td>
-            </tr>
-            <tr>
-                <td class="text-bold">Deno Path:</td><td><%=denoPath%></td>
-            </tr>
-            <tr>
-                <td class="text-bold">Deno Version:</td><td><%=denoVersion%></td>
-            </tr>
-            <tr>
-                <td class="text-bold">Typescript Ver:</td><td><%=typescriptVersion%></td>
-            </tr>
-            <tr>
-                <td class="text-bold">V8 Ver.:</td><td><%=v8Version%></td>
-            </tr>
-           </table>
-        </div>
-      </div>
+<div class="ui relaxed divided list">
+  <div class="item">
+    <i class="large server middle aligned icon"></i>
+    <div class="content">
+      <div class="header">Host:</div>
+      <div class="description"><%=hostname%></div>
+    </div>
+  </div>
+  <div class="item">
+    <i class="large windows middle aligned icon"></i>
+    <div class="content">
+      <div class="header">Operating System:</div>
+      <div class="description"><%=os%></div>
+    </div>
+  </div>
+  <div class="item">
+    <i class="large microchip middle aligned icon"></i>
+    <div class="content">
+      <div class="header">Architecture:</div>
+      <div class="description"><%=arch%></div>
+    </div>
+  </div>
+  <div class="item">
+    <i class="large folder open middle aligned icon"></i>
+    <div class="content">
+      <div class="header">Current Path:</div>
+      <div class="description"><%=currentPath%></div>
+    </div>
+  </div>
+  <div class="item">
+    <i class="large folder middle aligned icon"></i>
+    <div class="content">
+      <div class="header">Home Directory:</div>
+      <div class="description"><%=homeDir%></div>
+    </div>
+  </div>
+  <div class="item">
+    <i class="large file code outline middle aligned icon"></i>
+    <div class="content">
+      <div class="header">Deno Path:</div>
+      <div class="description"><%=denoPath%></div>
+    </div>
+  </div>
+  <div class="item">
+    <i class="large info circle middle aligned icon"></i>
+    <div class="content">
+      <div class="header">Deno Version:</div>
+      <div class="description"><%=denoVersion%></div>
+    </div>
+  </div>
+  <div class="item">
+    <i class="large js square middle aligned icon"></i>
+    <div class="content">
+      <div class="header">Typescript Version:</div>
+      <div class="description"><%=typescriptVersion%></div>
+    </div>
+  </div>
+  <div class="item">
+    <i class="large js square middle aligned icon"></i>
+    <div class="content">
+      <div class="header">V8 Version:</div>
+      <div class="description"><%=v8Version%></div>
+    </div>
+  </div>
 </div>
 `
 export const onBeforeRender = ``

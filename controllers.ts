@@ -26,12 +26,27 @@ export function getDepscaches(): any {
     }
 }
 
-export function getGencaches(): any {
-    let folders = utils.listGenFolders()
+export function getGencacheslocal(): any {
+    let folders = utils.listGenFoldersLocal()
     return {
-        root: utils.getTypeScriptCacheDir(),
+        root: utils.getTypeScriptCacheDirLocal(),
         folders: folders
     }
 }
+
+export function getGencachesremote(): any {
+    let folders = utils.listGenFoldersRemote()
+    return {
+        root: utils.getTypeScriptCacheDirRemote(),
+        folders: folders
+    }
+}
+
+export function getAbout(): any {
+    return {
+        
+    }
+}
+
 
 

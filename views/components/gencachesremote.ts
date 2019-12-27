@@ -1,22 +1,5 @@
-export const title = 'Remote Dependencies Cache'
+export const title = 'TypeScript Cache <small>remote</small>'
 export const body = `
-<div class="ui mini test modal transition">
-    <div class="header">
-      Clear Cache
-    </div>
-    <div class="content">
-      <p>Are you sure you want to delete this folder?</p>
-    </div>
-    <div class="actions">
-      <div class="ui negative button">
-        No
-      </div>
-      <div class="ui positive right labeled icon button">
-        Yes
-        <i class="checkmark icon"></i>
-      </div>
-    </div>
-</div>
 <h4>[<%= root %>]  <small>first 20 items</small></h4>
 <div class="ui divider"></div>
 <div class="ui middle aligned divided list">
@@ -75,7 +58,7 @@ inlineScript = function() {
         axios.get('/api/deletefolder/' + folder)
         .then((res) => {
             if (res.data.success) {
-                renderComponent('depscaches');
+                renderComponent('gencachesremote');
             } else {
                 alert("Error deleting this folder: Error -> " + res.data.error.name)
             }

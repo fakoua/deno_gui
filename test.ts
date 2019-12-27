@@ -1,11 +1,21 @@
-//import * as utils from './utils.ts'
-//import * as controllers from './controllers.ts'
+let p = Deno.run({
+            args: ["deno", "--version"],
+            stdout: "piped",
+            stderr: "piped"
+        })
 
-let res = Deno.readDirSync('C:\\Users\\sameh\\AppData\\Local\\deno\\gen')
+const { code } = await p.status();
 
-res.forEach(element => {
-    console.log(element.isFile())    
-});
+let res = ''
+if (code === 0) {
+  const rawOutput = await p.output();
+  res = new TextDecoder("utf-8").decode(rawOutput)
+} else {
+  const rawError = await p.stderrOutput();
+  res = new TextDecoder().decode(rawError);
+}
+
+console.log('The Result: ' + res)
 
 
-
+Deno

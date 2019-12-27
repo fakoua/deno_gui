@@ -7,18 +7,11 @@ import { css } from './views/_shared/_layout.css.ts'
 
 import { renderAsync } from './engine.ts'
 
-const books = new Map<string, any>();
-books.set("1", {
-  id: "1",
-  title: "The Hound of the Baskervilles",
-  author: "Conan Doyle, Author"
-});
-
 const router = new Router();
 router
   .get("/", context => {
     context.response.headers.set("Content-Type", "text/html")
-    let body = _layout_template.replace('@@CSS@@', css)
+    let body = _layout_template.replace('/*@@CSS@@*/', css)
     context.response.body = body
   })
 
@@ -31,6 +24,12 @@ router
 
   .get("/api/deletefolder/:folder", async (context) => {
     let result = await utils.deleteFolder(context.params.folder)
+    context.response.headers.set("Content-Type", "application/json")
+    context.response.body = result
+  })
+
+  .get("/api/run/:command", async (context) => {
+    let result = await utils.runDeno(context.params.command)
     context.response.headers.set("Content-Type", "application/json")
     context.response.body = result
   })

@@ -1,6 +1,6 @@
 import * as path from "https://deno.land/std/path/mod.ts";
 import { walkSync } from "https://deno.land/std/fs/mod.ts";
-import {OperatingSystem} from './models/OperatingSystem.ts';
+import { OperatingSystem } from './models/OperatingSystem.ts';
 import { CacheFolder } from './models/CacheFolder.ts'
 
 export function getOsInfo(): OperatingSystem {
@@ -15,7 +15,7 @@ export function getOsInfo(): OperatingSystem {
         typescriptVersion: Deno.version.typescript,
         v8Version: Deno.version.v8
     }
-    
+
     return rtnVal;
 }
 
@@ -38,11 +38,11 @@ export function getDenoDir(): string {
     let os = getOS();
     let homeKey: string = os == OS.win ? 'USERPROFILE' : 'HOME'
     let homeDir = Deno.env(homeKey)
-    let relativeDir="";
+    let relativeDir = "";
 
     switch (os) {
         case OS.win:
-            relativeDir = "AppData/Local/deno"        
+            relativeDir = "AppData/Local/deno"
             break;
         case OS.linux:
             relativeDir = ".cache/deno"
@@ -60,17 +60,12 @@ export function getDepsCacheDir(): string {
     return path.join(homeDir, 'deps/https/')
 }
 
-export function getTypeScriptCacheDir(): string {
-    let homeDir = getDenoDir()
-    return path.join(homeDir, 'gen')
-}
-
-export function getLocalCacheDir(): string {
+export function getTypeScriptCacheDirLocal(): string {
     let homeDir = getDenoDir()
     return path.join(homeDir, 'gen/file')
 }
 
-export function getRemoteCacheDir(): string {
+export function getTypeScriptCacheDirRemote(): string {
     let homeDir = getDenoDir()
     return path.join(homeDir, 'gen/https')
 }
@@ -95,7 +90,7 @@ function containsFiles(path: string): boolean {
     try {
         let items = Deno.readDirSync(path)
 
-        for (let i=0; i<items.length; i++) {
+        for (let i = 0; i < items.length; i++) {
             if (items[i].isFile()) {
                 return true;
             }
@@ -107,28 +102,54 @@ function containsFiles(path: string): boolean {
     }
 }
 
-export function listGenFolders(): Array<CacheFolder> {
+export function listGenFoldersLocal(): Array<CacheFolder> {
     let rtnVal = new Array<CacheFolder>()
-    let rootFolder = getTypeScriptCacheDir()
+    let rootFolder = getTypeScriptCacheDirLocal()
 
-    for (const fileInfo of walkSync(rootFolder, {includeFiles: false, includeDirs: true})) {
+    for (const fileInfo of walkSync(rootFolder, { includeFiles: false, includeDirs: true })) {
         if (containsFiles(fileInfo.filename)) {
             let f: CacheFolder = {
                 created: new Date(),
-                name: fileInfo.filename,
+                name: '...' + fileInfo.filename.replace(rootFolder, ''),
                 path: fileInfo.filename,
                 id: btoa(fileInfo.filename)
             }
             rtnVal.push(f)
         }
     }
+    let sorted = rtnVal.sort((f1, f2) => {
+        if (f1.path.length > f2.path.length) {
+            return 1
+        }
+        if (f1.path.length < f2.path.length) {
+            return -1
+        }
+        return 0;
+    })
+    return sorted.slice(0, 20)
+}
+
+export function listGenFoldersRemote(): Array<CacheFolder> {
+    let rtnVal = new Array<CacheFolder>()
+    let rootFolder = getTypeScriptCacheDirRemote()
+
+    let folders = Deno.readDirSync(rootFolder)
+    folders.forEach(folder => {
+        let f: CacheFolder = {
+            created: new Date(folder.created),
+            name: folder.name,
+            path: rootFolder,
+            id: btoa(path.join(rootFolder, folder.name))
+        }
+        rtnVal.push(f)
+    })
     return rtnVal.slice(0, 20)
 }
 
 export async function deleteFolder(folder: string): Promise<any> {
     try {
         folder = atob(folder)
-        await Deno.remove(folder, {recursive: true})
+        await Deno.remove(folder, { recursive: true })
         return {
             success: true,
             error: ''
@@ -138,5 +159,31 @@ export async function deleteFolder(folder: string): Promise<any> {
             success: false,
             error: error
         }
+    }
+}
+
+export async function runDeno(command: string): Promise<string> {
+    try {
+        command = atob(command)
+        let p = Deno.run({
+            args: ["deno", "eval", command],
+            stdout: "piped",
+            stderr: "piped"
+        })
+
+        const { code } = await p.status();
+
+        let res = ''
+        if (code === 0) {
+            const rawOutput = await p.output();
+            res = new TextDecoder("utf-8").decode(rawOutput)
+        } else {
+            const rawError = await p.stderrOutput();
+            res = new TextDecoder().decode(rawError);
+        }
+
+        return res;
+    } catch (error) {
+        return error.toString();
     }
 }
