@@ -1,21 +1,7 @@
-let p = Deno.run({
-            args: ["deno", "--version"],
-            stdout: "piped",
-            stderr: "piped"
-        })
+  
+import "./utils_test.ts"
+import "./engine_test.ts"
 
-const { code } = await p.status();
+import { runTests } from "./test_deps.ts"
 
-let res = ''
-if (code === 0) {
-  const rawOutput = await p.output();
-  res = new TextDecoder("utf-8").decode(rawOutput)
-} else {
-  const rawError = await p.stderrOutput();
-  res = new TextDecoder().decode(rawError);
-}
-
-console.log('The Result: ' + res)
-
-
-Deno
+runTests()
