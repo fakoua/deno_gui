@@ -187,3 +187,16 @@ export async function runDeno(command: string): Promise<string> {
         return error.toString();
     }
 }
+
+export async function fetchDenoVersion(): Promise<string> {
+    try {
+        let response = await fetch('https://github.com/denoland/deno/releases/latest')
+        let body = await response.text()
+        const regVer = new RegExp(/title\=\"v(.*)?\"/)
+        let res = regVer.exec(body)
+        return res[1]
+    } catch (error) {
+        return 'Error fetching'
+    }
+
+}

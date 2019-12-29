@@ -1,5 +1,22 @@
 export const title = 'TypeScript Cache <small>remote</small>'
 export const body = `
+<div class="ui mini test modal transition">
+    <div class="header">
+      Clear Cache
+    </div>
+    <div class="content">
+      <p>Are you sure you want to delete this folder?</p>
+    </div>
+    <div class="actions">
+      <div class="ui negative button">
+        No
+      </div>
+      <div class="ui positive right labeled icon button">
+        Yes
+        <i class="checkmark icon"></i>
+      </div>
+    </div>
+</div>
 <h4>[<%= root %>]  <small>first 20 items</small></h4>
 <div class="ui divider"></div>
 <div class="ui middle aligned divided list">
@@ -21,35 +38,25 @@ export const body = `
 export const onBeforeRender = ``
 export const onAfterRender = `
 inlineScript = function() {
-
-    function uiPrompt() {
-        return new Promise((resolve, reject) => {
-            $('.mini.modal')
-            .modal({
-                onApprove: () => {
-                    resolve(true);
-                }, 
-                onDeny: () => {
-                    reject(false)
-                },
-                onHide: () => {
-                    reject(false)
-                }
-            })
-            .modal('show')
-        });
+    
+    function uiPrompt(e) {
+        let modal= $('.mini.modal')
+                .modal({
+                    onApprove: () => {
+                        processDelete(e)
+                    }, 
+                    onDeny: () => {
+                        console.log('deny')
+                    },
+                    onHide: () => {
+                        console.log('hide')
+                    }
+                });
+        modal.modal('show')
     }
 
     $('button[data-folder]').click((e) => {
-        uiPrompt()
-            .then((res) => {
-                processDelete(e)
-            })
-            .catch((err) => {
-                //console.log('reject')
-            })
-        return;
-        
+        uiPrompt(e);
     });
 
     function processDelete(e) {
@@ -58,6 +65,7 @@ inlineScript = function() {
         axios.get('/api/deletefolder/' + folder)
         .then((res) => {
             if (res.data.success) {
+                $('.ui.dimmer.modals').remove();
                 renderComponent('gencachesremote');
             } else {
                 alert("Error deleting this folder: Error -> " + res.data.error.name)

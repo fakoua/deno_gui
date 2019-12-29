@@ -3,7 +3,7 @@ export const body = `
 <h3>Deno GUI</h3>
 A Web interface for Deno
 <div class="ui divider"></div>
-<h3>Credit</h3>
+<h3>Credits</h3>
 <div class="ui divider"></div>
 <div class="ui list">
   <div class="item">
@@ -54,6 +54,20 @@ A Web interface for Deno
       <a href="https://github.com/axios/axios" target="_blank">axios</a>: Promise based HTTP client for the browser and node.js
     </div>
   </div>
+
+  <div class="item">
+    <i class="github icon"></i>
+    <div class="content">
+      <a href="https://github.com/fakoua/dargs" target="_blank">dargs</a>: Argument parser for Deno
+    </div>
+  </div>
+
+  <div class="item">
+  <i class="github icon"></i>
+  <div class="content">
+    <a href="https://github.com/fakoua/cowsay" target="_blank">cowsay</a>: Configurable talking cow for Deno
+  </div>
+</div>
 
 </div>
 

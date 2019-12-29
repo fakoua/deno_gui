@@ -47,7 +47,7 @@ export const body = `
     <i class="large info circle middle aligned icon"></i>
     <div class="content">
       <div class="header">Deno Version:</div>
-      <div class="description"><%=denoVersion%></div>
+      <div class="description"><%=denoVersion%> <span style="padding-left:20px;">latest version: <span id='denolatest' style="font-weight:600">...</span><span></div>
     </div>
   </div>
   <div class="item">
@@ -67,4 +67,11 @@ export const body = `
 </div>
 `
 export const onBeforeRender = ``
-export const onAfterRender = ``
+export const onAfterRender = `
+inlineScript = function() {
+   axios.get('/api/denolatest/')
+    .then((res) => {
+      $('#denolatest').html(res.data)
+    })
+}
+`

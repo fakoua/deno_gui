@@ -1,9 +1,10 @@
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 import * as utils from './utils.ts'
 import * as controllers from './controllers.ts'
-
+import * as cow from 'https://raw.githubusercontent.com/fakoua/cowsay/master/mod.ts'
 import {_layout_template} from './views/_shared/_layout.ts'
 import { css } from './views/_shared/_layout.css.ts'
+import dargs from 'https://raw.githubusercontent.com/fakoua/dargs/master/mod.ts'
 
 import { renderAsync } from './engine.ts'
 
@@ -34,11 +35,32 @@ router
     context.response.body = result
   })
 
+  .get("/api/denolatest/", async (context) => {
+    const version = await utils.fetchDenoVersion()
+    context.response.headers.set("Content-Type", "application/json")
+    context.response.body = version
+  })
+
   
 
 const app = new Application();
 app.use(router.routes());
 app.use(router.allowedMethods());
-console.log('open  http://localhost:8080')
-await app.listen("localhost:8080")
+
+let opts = {
+  default: {
+    port: 8080
+  },
+  alias: {
+    port: 'p'
+  }
+}
+let argsv = dargs(Deno.args.slice(1), opts)
+
+let text = cow.say({
+  text: `Open  http://localhost:${argsv.port}`,
+  cow: 'kitten'
+})
+console.log(text)
+await app.listen(`localhost:${argsv.port}`)
 
