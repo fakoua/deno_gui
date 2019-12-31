@@ -11,7 +11,10 @@ export function getModel(action: string): any {
 }
 
 export function getDashboard(): any {
-    return utils.getOsInfo()
+    return {
+        osInfo: utils.getOsInfo(),
+        envs: utils.getEnv()
+    }
 }
 
 export function getConsole(): any {
@@ -22,22 +25,6 @@ export function getDepscaches(): any {
     let folders = utils.listDepsFolders()
     return {
         root: utils.getDepsCacheDir(),
-        folders: folders
-    }
-}
-
-export function getGencacheslocal(): any {
-    let folders = utils.listGenFoldersLocal()
-    return {
-        root: utils.getTypeScriptCacheDirLocal(),
-        folders: folders
-    }
-}
-
-export function getGencachesremote(): any {
-    let folders = utils.listGenFoldersRemote()
-    return {
-        root: utils.getTypeScriptCacheDirRemote(),
         folders: folders
     }
 }

@@ -2,6 +2,9 @@ import * as path from "https://deno.land/std/path/mod.ts";
 import { walkSync } from "https://deno.land/std/fs/mod.ts";
 import { OperatingSystem } from './models/OperatingSystem.ts';
 import { CacheFolder } from './models/CacheFolder.ts'
+import { KeyValuePair } from './models/KeyValuePair.ts'
+import { Folder, FileExplorer } from './models/Folder.ts'
+import { filesize } from './libs/filesize.ts'
 
 export function getOsInfo(): OperatingSystem {
     let rtnVal: OperatingSystem = {
@@ -17,6 +20,19 @@ export function getOsInfo(): OperatingSystem {
     }
 
     return rtnVal;
+}
+
+export function getEnv(): Array<KeyValuePair<string>> {
+    let rtnVal: Array<KeyValuePair<string>> = new Array<KeyValuePair<string>>()
+    let env = Deno.env();
+    Object.keys(env).forEach((k) => {
+        let item: KeyValuePair<string> = {
+            key: k, 
+            value: env[k]
+        }
+        rtnVal.push(item)
+    })
+    return rtnVal
 }
 
 
@@ -199,4 +215,64 @@ export async function fetchDenoVersion(): Promise<string> {
         return 'Error fetching'
     }
 
+}
+
+
+function getFoldersTree(p: string): Array<Folder> {
+    
+    let folders: Array<Folder> = new Array<Folder>()
+    let fileInfo = Deno.readDirSync(p)
+    fileInfo.forEach(element => {
+        if (element.isDirectory()) {
+            let folder: Folder = {
+                id: btoa(path.join(p, element.name)),
+                text: element.name,
+                children: []
+            }
+            folders.push(folder)
+            folder.children = getFoldersTree(path.join(p, element.name))
+        }
+    });
+    return folders;
+}
+
+export function getCacheTree(): Array<Folder> {
+    const p = getDenoDir()
+    return getFoldersTree(p);
+}
+
+export function getFiles(root: string): Array<FileExplorer> {
+    root = atob(root)
+    let folders: Array<FileExplorer> = new Array<FileExplorer>()
+    let fileInfos = Deno.readDirSync(root)
+    fileInfos.forEach(element => {
+        let folder: FileExplorer = {
+            id: btoa(path.join(root, element.name)),
+            isFile: element.isFile(),
+            name: element.name,
+            size: element.isFile() ? filesize(element.len) : ''
+        }
+        folders.push(folder)
+    });
+
+    folders = folders.sort((f1, f2) => {
+        if (f1.name > f2.name) {
+            return 1
+        }
+        if (f1.name < f2.name) {
+            return -1
+        }
+        return 0
+    })
+
+    folders = folders.sort((f1, f2) => {
+        if (f1.isFile) {
+            return 1
+        }
+        if (f2.isFile) {
+            return -1
+        }
+        return 0
+    })
+    return folders
 }

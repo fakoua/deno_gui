@@ -65,4 +65,10 @@ body {
   .ui.mobile.only.grid .ui.menu .ui.vertical.menu {
     display: none;
   }
+
+  @media only screen and (min-width: 992px) {
+.ui.column.grid>[class*="thirteen wide computer"].column, .ui.grid>.column.row>[class*="thirteen wide computer"].column, .ui.grid>.row>[class*="thirteen wide computer"].column, .ui.grid>[class*="thirteen wide computer"].column {
+    width: 87.00%!important;
+}
+}
 `

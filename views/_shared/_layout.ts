@@ -14,6 +14,7 @@ export const _layout_template = `
     type="text/css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.min.css"
     integrity="sha256-uTIrmf95e6IHlacC0wpDaPS58eWF314UC7OgdrD6AdU=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
   <style type="text/css">
     /*@@CSS@@*/
   </style>
@@ -39,8 +40,7 @@ export const _layout_template = `
         <a data-route="dashboard" class="item">Dashboard</a>
         <a data-route="console" class="item">Terminal</a>
         <div class="ui fitted divider"></div>
-        <a data-route="depscaches" class="item">Remote Deps Cache</a>
-        <a data-route="gencaches" class="item">TypeScript Cache</a>
+        <a data-route="depscaches" class="item">Deno Cache</a>
         <div class="ui fitted divider"></div>
         <a data-route="about" class="item">About</a>
       </div>
@@ -52,9 +52,7 @@ export const _layout_template = `
         <a data-route="dashboard" class="active item">Dashboard</a>
         <a data-route="console" class="item">Terminal</a>
         <div class="ui hidden divider"></div>
-        <a data-route="depscaches" class="item">Remote Deps Cache</a>
-        <a data-route="gencachesremote" class="item">TypeScript Cache <small>remote</small></a>
-        <a data-route="gencacheslocal" class="item">TypeScript Cache <small>local</small></a>
+        <a data-route="depscaches" class="item">Deno Cache</a>
         <a data-route="about" class="item">About</a>
       </div>
     </div>
@@ -77,6 +75,8 @@ export const _layout_template = `
     integrity="sha256-S1J4GVHHDMiirir9qsXWc8ZWw74PHHafpsHp5PXtjTs=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.min.js"
     integrity="sha256-tDeULIXIGkXbz7dkZ0qcQajBIS22qS8jQ6URaeMoVJs=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.5.3/handlebars.min.js" integrity="sha256-GwjGuGudzIwyNtTEBZuBYYPDvNlSMSKEDwECr6x6H9c=" crossorigin="anonymous"></script>
   <script>
     let inlineScript = function () {};
     $(document).ready(() => {

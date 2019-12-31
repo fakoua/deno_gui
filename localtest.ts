@@ -1,5 +1,2 @@
-import * as engine from './engine.ts'
-
-
-let result = await engine.renderAsync('generic', {id:1});
-console.log(result)
+import { bgMagenta, yellow, bold,dim } from "https://deno.land/std/fmt/colors.ts";
+ console.log(dim(bgMagenta(yellow(dim("Hello world!")))))

@@ -35,6 +35,17 @@ router
     context.response.body = result
   })
 
+  .get("/api/folders/:folder", async (context) => {
+    let folder = context.params.folder
+    context.response.headers.set("Content-Type", "application/json")
+
+    if (folder == '_root_') {
+      context.response.body = utils.getCacheTree()
+    } else {
+      context.response.body = utils.getFiles(folder)
+    }
+  })
+
   .get("/api/denolatest/", async (context) => {
     const version = await utils.fetchDenoVersion()
     context.response.headers.set("Content-Type", "application/json")
