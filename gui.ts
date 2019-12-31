@@ -1,7 +1,7 @@
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 import * as utils from './utils.ts'
 import * as controllers from './controllers.ts'
-import * as cow from 'https://raw.githubusercontent.com/fakoua/cowsay/master/mod.ts'
+import * as cow from 'https://deno.land/x/cowsay/mod.ts'
 import {_layout_template} from './views/_shared/_layout.ts'
 import { css } from './views/_shared/_layout.css.ts'
 import dargs from 'https://raw.githubusercontent.com/fakoua/dargs/master/mod.ts'
