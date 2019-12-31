@@ -8,20 +8,20 @@ Deno Web GUI
 Run the Server
 
 ```bash
-deno -A https://raw.githubusercontent.com/fakoua/deno_gui/master/gui.ts
+deno -A https://deno.land/x/deno_gui/gui.ts
 //Default port is 8080
 ```
 
 Specify the port:
 
 ```bash
-deno -A https://raw.githubusercontent.com/fakoua/deno_gui/master/gui.ts -p=9000
+deno -A https://deno.land/x/deno_gui/gui.ts -p=9000
 ```
 
 Or you can use --port=9000
 
 ```bash
-deno -A https://raw.githubusercontent.com/fakoua/deno_gui/master/gui.ts --port=9000
+deno -A https://deno.land/x/deno_gui/gui.ts --port=9000
 ```
 
 Open: http://localhost:8080
