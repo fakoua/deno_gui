@@ -58,7 +58,7 @@ A Web interface for Deno
   <div class="item">
     <i class="github icon"></i>
     <div class="content">
-      <a href="https://github.com/fakoua/dargs" target="_blank">dargs</a>: Argument parser for Deno
+      <a href="https://github.com/fakoua/ink" target="_blank">ink</a>: Terminal string color for Deno
     </div>
   </div>
 

@@ -4,7 +4,8 @@ import * as controllers from './controllers.ts'
 import * as cow from 'https://deno.land/x/cowsay/mod.ts'
 import {_layout_template} from './views/_shared/_layout.ts'
 import { css } from './views/_shared/_layout.css.ts'
-import dargs from 'https://raw.githubusercontent.com/fakoua/dargs/master/mod.ts'
+import { parse } from "https://deno.land/std/flags/mod.ts";
+import * as ink from 'https://deno.land/x/ink/mod.ts'
 
 import { renderAsync } from './engine.ts'
 
@@ -66,10 +67,12 @@ let opts = {
     port: 'p'
   }
 }
-let argsv = dargs(Deno.args.slice(1), opts)
+let argsv = parse(Deno.args, opts)
+
+let urlText = ink.colorize(`<b>Open: <red>http://localhost:${argsv.port}</red></b>`)
 
 let text = cow.say({
-  text: `Open  http://localhost:${argsv.port}`,
+  text: urlText,
   cow: 'kitten'
 })
 console.log(text)
