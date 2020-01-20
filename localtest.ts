@@ -1,4 +1,13 @@
-import * as colors from 'https://deno.land/std/fmt/colors.ts'
+import { parse } from "https://deno.land/std/flags/mod.ts";
 
-//let t = colors.red('hello');
-console.log('\x1b[1mhello \x1b[31mred\x1b[39m bold man\x1b[22m')
+let opts = {
+    default: {
+      port: 8080
+    },
+    alias: {
+      port: 'p'
+    }
+  }
+  let argsv = parse(Deno.args, opts)
+
+  console.log(argsv)
