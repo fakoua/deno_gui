@@ -4,7 +4,7 @@ import { OperatingSystem } from './models/OperatingSystem.ts';
 import { CacheFolder } from './models/CacheFolder.ts'
 import { KeyValuePair } from './models/KeyValuePair.ts'
 import { Folder, FileExplorer } from './models/Folder.ts'
-import { filesize } from './libs/filesize.ts'
+import "https://deno.land/x/humanizer.ts/byteSize.ts"
 
 function listFolders(rootFolder: string): Array<CacheFolder> {
     let rtnVal = new Array<CacheFolder>()
@@ -233,7 +233,7 @@ export function getFiles(root: string): Array<FileExplorer> {
             id: btoa(path.join(root, element.name)),
             isFile: element.isFile(),
             name: element.name,
-            size: element.isFile() ? filesize(element.len) : ''
+            size: element.isFile() ? element.len.bytes().toString() : ''
         }
         folders.push(folder)
     });
