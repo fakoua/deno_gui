@@ -6,6 +6,88 @@ import { KeyValuePair } from './models/KeyValuePair.ts'
 import { Folder, FileExplorer } from './models/Folder.ts'
 import { filesize } from './libs/filesize.ts'
 
+function listFolders(rootFolder: string): Array<CacheFolder> {
+    let rtnVal = new Array<CacheFolder>()
+    let folders = Deno.readDirSync(rootFolder)
+    folders.forEach(folder => {
+        let f: CacheFolder = {
+            created: new Date(folder.created),
+            name: folder.name,
+            path: rootFolder,
+            id: btoa(path.join(rootFolder, folder.name))
+        }
+        rtnVal.push(f)
+    })
+    return rtnVal.slice(0, 20)
+}
+
+function getFoldersTree(p: string): Array<Folder> {
+    
+    let folders: Array<Folder> = new Array<Folder>()
+    let fileInfo = Deno.readDirSync(p)
+    fileInfo.forEach(element => {
+        if (element.isDirectory()) {
+            let folder: Folder = {
+                id: btoa(path.join(p, element.name)),
+                text: element.name,
+                children: []
+            }
+            folders.push(folder)
+            folder.children = getFoldersTree(path.join(p, element.name))
+        }
+    });
+    return folders;
+}
+
+function containsFiles(path: string): boolean {
+    try {
+        let items = Deno.readDirSync(path)
+
+        for (let i = 0; i < items.length; i++) {
+            if (items[i].isFile()) {
+                return true;
+            }
+        }
+        return false;
+
+    } catch (error) {
+        return false
+    }
+}
+
+enum OS {
+    win, linux, mac
+}
+
+function getOS(): OS {
+    return OS[Deno.build.os];
+}
+
+function sortByName(folders: Array<FileExplorer>): Array<FileExplorer> {
+    return folders.sort((f1, f2) => {
+            if (f1.name > f2.name) {
+                return 1
+            }
+            if (f1.name < f2.name) {
+                return -1
+            }
+            return 0
+        })
+}
+
+function sortByType(folders: Array<FileExplorer>): Array<FileExplorer> {
+    return folders.sort((f1, f2) => {
+        if (f1.isFile) {
+            return 1
+        }
+        if (f2.isFile) {
+            return -1
+        }
+        return 0
+    })
+}
+
+//Exports
 export function getOsInfo(): OperatingSystem {
     let rtnVal: OperatingSystem = {
         arch: Deno.build.arch,
@@ -33,15 +115,6 @@ export function getEnv(): Array<KeyValuePair<string>> {
         rtnVal.push(item)
     })
     return rtnVal
-}
-
-
-enum OS {
-    win, linux, mac
-}
-
-function getOS(): OS {
-    return OS[Deno.build.os];
 }
 
 /**
@@ -87,79 +160,8 @@ export function getTypeScriptCacheDirRemote(): string {
 }
 
 export function listDepsFolders(): Array<CacheFolder> {
-    let rtnVal = new Array<CacheFolder>()
     let rootFolder = getDepsCacheDir()
-    let folders = Deno.readDirSync(rootFolder)
-    folders.forEach(folder => {
-        let f: CacheFolder = {
-            created: new Date(folder.created),
-            name: folder.name,
-            path: rootFolder,
-            id: btoa(path.join(rootFolder, folder.name))
-        }
-        rtnVal.push(f)
-    })
-    return rtnVal.slice(0, 20)
-}
-
-function containsFiles(path: string): boolean {
-    try {
-        let items = Deno.readDirSync(path)
-
-        for (let i = 0; i < items.length; i++) {
-            if (items[i].isFile()) {
-                return true;
-            }
-        }
-        return false;
-
-    } catch (error) {
-        return false
-    }
-}
-
-export function listGenFoldersLocal(): Array<CacheFolder> {
-    let rtnVal = new Array<CacheFolder>()
-    let rootFolder = getTypeScriptCacheDirLocal()
-
-    for (const fileInfo of walkSync(rootFolder, { includeFiles: false, includeDirs: true })) {
-        if (containsFiles(fileInfo.filename)) {
-            let f: CacheFolder = {
-                created: new Date(),
-                name: '...' + fileInfo.filename.replace(rootFolder, ''),
-                path: fileInfo.filename,
-                id: btoa(fileInfo.filename)
-            }
-            rtnVal.push(f)
-        }
-    }
-    let sorted = rtnVal.sort((f1, f2) => {
-        if (f1.path.length > f2.path.length) {
-            return 1
-        }
-        if (f1.path.length < f2.path.length) {
-            return -1
-        }
-        return 0;
-    })
-    return sorted.slice(0, 20)
-}
-
-export function listGenFoldersRemote(): Array<CacheFolder> {
-    let rtnVal = new Array<CacheFolder>()
-    let rootFolder = getTypeScriptCacheDirRemote()
-
-    let folders = Deno.readDirSync(rootFolder)
-    folders.forEach(folder => {
-        let f: CacheFolder = {
-            created: new Date(folder.created),
-            name: folder.name,
-            path: rootFolder,
-            id: btoa(path.join(rootFolder, folder.name))
-        }
-        rtnVal.push(f)
-    })
-    return rtnVal.slice(0, 20)
+    return listFolders(rootFolder)
 }
 
 export async function deleteFolder(folder: string): Promise<any> {
@@ -217,25 +219,6 @@ export async function fetchDenoVersion(): Promise<string> {
 
 }
 
-
-function getFoldersTree(p: string): Array<Folder> {
-    
-    let folders: Array<Folder> = new Array<Folder>()
-    let fileInfo = Deno.readDirSync(p)
-    fileInfo.forEach(element => {
-        if (element.isDirectory()) {
-            let folder: Folder = {
-                id: btoa(path.join(p, element.name)),
-                text: element.name,
-                children: []
-            }
-            folders.push(folder)
-            folder.children = getFoldersTree(path.join(p, element.name))
-        }
-    });
-    return folders;
-}
-
 export function getCacheTree(): Array<Folder> {
     const p = getDenoDir()
     return getFoldersTree(p);
@@ -254,25 +237,7 @@ export function getFiles(root: string): Array<FileExplorer> {
         }
         folders.push(folder)
     });
-
-    folders = folders.sort((f1, f2) => {
-        if (f1.name > f2.name) {
-            return 1
-        }
-        if (f1.name < f2.name) {
-            return -1
-        }
-        return 0
-    })
-
-    folders = folders.sort((f1, f2) => {
-        if (f1.isFile) {
-            return 1
-        }
-        if (f2.isFile) {
-            return -1
-        }
-        return 0
-    })
+    folders = sortByName(folders)
+    folders = sortByType(folders)
     return folders
 }
