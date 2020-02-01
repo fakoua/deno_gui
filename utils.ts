@@ -117,6 +117,71 @@ export function getEnv(): Array<KeyValuePair<string>> {
     return rtnVal
 }
 
+export function getSystemFolders(): Array<KeyValuePair<string>> {
+    let rtnVal: Array<KeyValuePair<string>> = new Array<KeyValuePair<string>>()
+    rtnVal.push({
+        key: 'Audio',
+        value: Deno.dir("audio")
+    })
+    rtnVal.push({
+        key: 'Cache',
+        value: Deno.dir("cache")
+    })
+    rtnVal.push({
+        key: 'Config',
+        value: Deno.dir("config")
+    })
+    rtnVal.push({
+        key: 'Data',
+        value: Deno.dir("data")
+    })
+    rtnVal.push({
+        key: 'Local Data',
+        value: Deno.dir("data_local")
+    })
+    rtnVal.push({
+        key: 'Desktop',
+     value: Deno.dir("desktop")
+    })
+    rtnVal.push({
+        key: 'Document',
+        value: Deno.dir("document")
+    })
+    rtnVal.push({
+        key: 'Download',
+        value: Deno.dir("download")
+    })
+    rtnVal.push({
+        key: 'Executable',
+        value: Deno.dir("executable")
+    })
+    rtnVal.push({
+        key: 'Font',
+        value: Deno.dir("font")
+    })
+    rtnVal.push({
+        key: 'Home',
+        value: Deno.dir("home")
+    })
+    rtnVal.push({
+        key: 'Picture',
+        value: Deno.dir("picture")
+    })
+    rtnVal.push({
+        key: 'Public',
+        value: Deno.dir("public")
+    })
+    rtnVal.push({
+        key: 'Template',
+        value: Deno.dir("template")
+    })
+    rtnVal.push({
+        key: 'Video',
+        value: Deno.dir("video")
+    })
+    return rtnVal
+}
+
 /**
  * Returs deno root directory
  * Example:

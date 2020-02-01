@@ -13,7 +13,8 @@ export function getModel(action: string): any {
 export function getDashboard(): any {
     return {
         osInfo: utils.getOsInfo(),
-        envs: utils.getEnv()
+        envs: utils.getEnv(),
+        folders: utils.getSystemFolders()
     }
 }
 

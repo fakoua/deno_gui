@@ -1,5 +1,4 @@
-import * as dejs from 'https://deno.land/x/dejs@0.3.3/mod.ts'
-import { StringWriter } from 'https://deno.land/std/io/writers.ts'
+import * as dejs from 'https://deno.land/x/dejs/mod.ts'
 import { ViewData } from './models/ViewData.ts'
 
 const { copy } = Deno;
@@ -10,13 +9,13 @@ export async function renderAsync(view: string, model: any): Promise<ViewData> {
         let comPath = `./views/components/${view}.ts`
         let template = await import(comPath)
         const output = await dejs.render(template.body, model)
-        let sw = new StringWriter();
-        await copy(sw, output)
+        let dataArray = await Deno.readAll(output)
+        const body = new TextDecoder().decode(dataArray);
         let result: ViewData = {
             title: template.title,
             onBeforeRender: template.onBeforeRender,
             onAfterRender: template.onAfterRender,
-            body: sw.toString()
+            body: body
         }
         return result;        
     } catch (error) {

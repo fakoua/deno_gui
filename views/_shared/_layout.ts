@@ -10,12 +10,11 @@ export const _layout_template = `
   <meta name="author" content="Sameh Fakoua" />
   <meta name="theme-color" content="#ffffff" />
   <title>Deno GUI</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
-    type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/xterm/3.14.5/xterm.min.css"
     integrity="sha256-uTIrmf95e6IHlacC0wpDaPS58eWF314UC7OgdrD6AdU=" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-  <style type="text/css">
+  <style>
     /*@@CSS@@*/
   </style>
 </head>
@@ -99,7 +98,7 @@ export const _layout_template = `
       axios.get('/render/' + com)
         .then((res) => {
           $('#title').html(res.data.title)
-          $('#container').html(res.data.body)
+          $('#container').html(res.data.body);
           eval(res.data.onAfterRender)
           inlineScript();
           inlineScript = function () {}
