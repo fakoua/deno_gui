@@ -4,6 +4,7 @@ import startCase from 'https://deno.land/x/lodash/startCase.js'
 export function getModel(action: string): any {
     try {
         action = startCase(action)
+        //@ts-ignore
         return this['get' + action]()
     } catch (error) {
        return error 

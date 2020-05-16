@@ -11,31 +11,39 @@ import { renderAsync } from './engine.ts'
 
 const router = new Router();
 router
+//@ts-ignore
   .get("/", context => {
     context.response.headers.set("Content-Type", "text/html")
     let body = _layout_template.replace('/*@@CSS@@*/', css)
     context.response.body = body
   })
 
+  //@ts-ignore
   .get("/render/:com", async (context) => {
+    //@ts-ignore
     let model = controllers.getModel(context.params.com)
+    //@ts-ignore
     let result = await renderAsync(context.params.com, model);
     context.response.headers.set("Content-Type", "application/json")
     context.response.body = result
   })
 
+  //@ts-ignore
   .get("/api/deletefolder/:folder", async (context) => {
+    //@ts-ignore
     let result = await utils.deleteFolder(context.params.folder)
     context.response.headers.set("Content-Type", "application/json")
     context.response.body = result
   })
-
+  //@ts-ignore
   .get("/api/run/:command", async (context) => {
+    //@ts-ignore
     let result = await utils.runDeno(context.params.command)
     context.response.headers.set("Content-Type", "application/json")
     context.response.body = result
   })
 
+  //@ts-ignore
   .get("/api/folders/:folder", async (context) => {
     let folder = context.params.folder
     context.response.headers.set("Content-Type", "application/json")
@@ -43,10 +51,12 @@ router
     if (folder == '_root_') {
       context.response.body = utils.getCacheTree()
     } else {
+      // @ts-ignore
       context.response.body = utils.getFiles(folder)
     }
   })
 
+  //@ts-ignore
   .get("/api/denolatest/", async (context) => {
     const version = await utils.fetchDenoVersion()
     context.response.headers.set("Content-Type", "application/json")
