@@ -29,7 +29,11 @@ Open: http://localhost:8080
 ## Screenshot
 
 ![Deno GUI](https://raw.githubusercontent.com/fakoua/deno_gui/master/assets/deno_gui01.png)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffakoua%2Fdeno_gui.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ffakoua%2Fdeno_gui?ref=badge_shield)
 
 ## License
 
 [MIT](LICENSE)
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffakoua%2Fdeno_gui.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ffakoua%2Fdeno_gui?ref=badge_large)
