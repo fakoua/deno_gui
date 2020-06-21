@@ -63,8 +63,6 @@ router
     context.response.body = version
   })
 
-  
-
 const app = new Application();
 app.use(router.routes());
 app.use(router.allowedMethods());
@@ -87,7 +85,3 @@ let text = cow.say({
 })
 console.log(text)
 await app.listen(`localhost:${argsv.port}`)
-<<<<<<< HEAD
-
-=======
->>>>>>> 7b5a6da678cb34b2034dfff496fe7f83a19e73f6
