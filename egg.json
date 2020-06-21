@@ -1,0 +1,17 @@
+{
+    "name": "deno_gui",
+    "description": "Deno Web GUI",
+    "stable": true,
+    "version": "2.0.0",
+    "files": [
+        "./mod.ts",
+        "./controllers.ts",
+        "./engine.ts",
+        "./gui.ts",
+        "./utils.ts",
+        "./assets/**/*",
+        "./README.md",
+        "./models/**/*",
+        "./views/**/*"
+    ]
+}

@@ -77,7 +77,7 @@ export function getOsInfo(): OperatingSystem {
         denoPath: Deno.execPath(),
         denoVersion: Deno.version.deno,
         homeDir: getDenoDir(),
-        hostname: 'Deno.hostname()',
+        hostname: Deno.hostname(),
         os: Deno.build.os,
         typescriptVersion: Deno.version.typescript,
         v8Version: Deno.version.v8
@@ -99,67 +99,67 @@ export function getEnv(): Array<KeyValuePair<string>> {
     return rtnVal
 }
 
-export function getSystemFolders(): Array<KeyValuePair<string>> {
-    let rtnVal: Array<KeyValuePair<string>> = new Array<KeyValuePair<string>>()
+export function getSystemFolders(): Array<KeyValuePair<string | null>> {
+    let rtnVal: Array<KeyValuePair<string | null>> = new Array<KeyValuePair<string | null>>()
     rtnVal.push({
         key: 'Audio',
-        value: 'Deno.dir("audio")'
+        value: Deno.dir("audio")
     })
     rtnVal.push({
         key: 'Cache',
-        value: 'Deno.dir("cache")'
+        value: Deno.dir("cache")
     })
     rtnVal.push({
         key: 'Config',
-        value: 'Deno.dir("config")'
+        value: Deno.dir("config")
     })
     rtnVal.push({
         key: 'Data',
-        value: 'Deno.dir("data")'
+        value: Deno.dir("data")
     })
     rtnVal.push({
         key: 'Local Data',
-        value: 'Deno.dir("data_local")'
+        value: Deno.dir("data_local")
     })
     rtnVal.push({
         key: 'Desktop',
-     value: 'Deno.dir("desktop")'
+     value: Deno.dir("desktop")
     })
     rtnVal.push({
         key: 'Document',
-        value: 'Deno.dir("document")'
+        value: Deno.dir("document")
     })
     rtnVal.push({
         key: 'Download',
-        value: 'Deno.dir("download")'
+        value: Deno.dir("download")
     })
     rtnVal.push({
         key: 'Executable',
-        value: 'Deno.dir("executable")'
+        value: Deno.dir("executable")
     })
     rtnVal.push({
         key: 'Font',
-        value: 'Deno.dir("font")'
+        value: Deno.dir("font")
     })
     rtnVal.push({
         key: 'Home',
-        value: 'Deno.dir("home")'
+        value: Deno.dir("home")
     })
     rtnVal.push({
         key: 'Picture',
-        value: 'Deno.dir("picture")'
+        value: Deno.dir("picture")
     })
     rtnVal.push({
         key: 'Public',
-        value: 'Deno.dir("public")'
+        value: Deno.dir("public")
     })
     rtnVal.push({
         key: 'Template',
-        value: 'Deno.dir("template")'
+        value: Deno.dir("template")
     })
     rtnVal.push({
         key: 'Video',
-        value: 'Deno.dir("video")'
+        value: Deno.dir("video")
     })
     return rtnVal
 }
@@ -229,7 +229,7 @@ export async function deleteFolder(folder: string): Promise<any> {
 
 export async function runDeno(command: string): Promise<string> {
     try {
-        command = atob(command)
+        command = atob(command);
         let p = Deno.run({
             cmd: ["deno", "eval", command],
             stdout: "piped",
@@ -238,7 +238,7 @@ export async function runDeno(command: string): Promise<string> {
 
         const { code } = await p.status();
 
-        let res = ''
+        let res: string;
         if (code === 0) {
             const rawOutput = await p.output();
             res = new TextDecoder("utf-8").decode(rawOutput)
@@ -246,7 +246,7 @@ export async function runDeno(command: string): Promise<string> {
             const rawError = await p.stderrOutput();
             res = new TextDecoder().decode(rawError);
         }
-
+        p.close();
         return res;
     } catch (error) {
         return error.toString();

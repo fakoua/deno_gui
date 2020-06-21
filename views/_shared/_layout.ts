@@ -1,7 +1,6 @@
 export const _layout_template = `
 <!DOCTYPE html>
 <html>
-
 <head>
   <meta charset="utf-8" />
   <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible" />
@@ -18,8 +17,12 @@ export const _layout_template = `
     /*@@CSS@@*/
   </style>
 </head>
-
 <body id="root">
+<div class="ui dimmer" id="dimmer">
+        <div class="ui massive text loader">
+            <h3>Loading</h3>
+        </div>
+    </div>
   <div class="ui tablet computer only padded grid">
     <div class="ui inverted borderless top fixed fluid menu">
       <a data-route="dashboard" class="header item">Deno GUI</a>
@@ -37,7 +40,7 @@ export const _layout_template = `
       </div>
       <div class="ui vertical borderless inverted fluid menu">
         <a data-route="dashboard" class="item">Dashboard</a>
-        <a data-route="console" class="item">Terminal</a>
+        <a data-route="console" class="item">Web REPL</a>
         <div class="ui fitted divider"></div>
         <a data-route="depscaches" class="item">Deno Cache</a>
         <div class="ui fitted divider"></div>
@@ -49,7 +52,7 @@ export const _layout_template = `
     <div class="three wide tablet only two wide computer only column" id="sidebar">
       <div class="ui vertical borderless fluid text menu">
         <a data-route="dashboard" class="active item">Dashboard</a>
-        <a data-route="console" class="item">Terminal</a>
+        <a data-route="console" class="item">Web REPL</a>
         <div class="ui hidden divider"></div>
         <a data-route="depscaches" class="item">Deno Cache</a>
         <a data-route="about" class="item">About</a>
@@ -76,7 +79,11 @@ export const _layout_template = `
     integrity="sha256-tDeULIXIGkXbz7dkZ0qcQajBIS22qS8jQ6URaeMoVJs=" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.5.3/handlebars.min.js" integrity="sha256-GwjGuGudzIwyNtTEBZuBYYPDvNlSMSKEDwECr6x6H9c=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.min.js" integrity="sha256-DQgiuuNYbJhK4lxVGFlnhs8dYMOARViaCImkW0avmW8=" crossorigin="anonymous"></script>
   <script>
+    let controller = 'dashboard';
+    let editor;
+    let term;
     let inlineScript = function () {};
     $(document).ready(() => {
       $(".ui.toggle.button").click(function () {
@@ -93,6 +100,7 @@ export const _layout_template = `
     });
 
     function renderComponent(com) {
+      controller = com;
       let preLoader = '<div class="ui loader active"></div>';
       $('#container').append(preLoader)
       axios.get('/render/' + com)
@@ -104,9 +112,73 @@ export const _layout_template = `
           inlineScript = function () {}
         })
         .finally(() => {
-
-        })
+          checkMonaco();
+        });
     }
+
+    function checkMonaco() {
+      if (controller == 'console') {
+        if (typeof window.require === "function") {
+          initMonaco();
+        }
+        else {
+          window.setTimeout(checkMonaco, 500);
+        }
+      }
+    }
+
+    function initMonaco() {
+      require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs' }});
+      require(['vs/editor/editor.main'], function() {
+        monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+          allowJs: true,
+          checkJs: true,
+          esModuleInterop: true,
+          target: monaco.languages.typescript.ScriptTarget.ESNext,
+          allowNonTsExtensions: true,
+          moduleResolution: monaco.languages.typescript.ModuleResolutionKind.NodeJs,
+          module: monaco.languages.typescript.ModuleKind.ESNext,
+          noEmit: true,
+          strict: true,
+          resolveJsonModule: true,
+          sourceMap: true,
+          typeRoots: ["node_modules/@types"]
+      });      
+        editor = monaco.editor.create(document.getElementById('ts-container'), {
+            automaticLayout: true,
+            language: 'typescript',
+            value: [
+              'console.log("Hello world!", Deno.version);\\\n'
+            ].join('\\\n')
+        });
+      });
+
+    function process(command) {
+      return new Promise((resolve, reject) => {
+          command = btoa(command)
+          axios.get('/api/run/' + command)
+          .then((res) => {
+              resolve(res.data)
+          })
+      })
+    }
+    $('#btn-run').click(function(e) {
+        e.preventDefault();
+        $('#dimmer').addClass('active')
+        process(editor.getValue())
+        .then((res) => {
+          term.clear();
+          var ars = res.split("\\n");
+          $.each(ars, function(index, value) {
+            term.writeln(value);
+          });
+          term.writeln('deno>');
+        })
+        .finally(() => {
+          $('#dimmer').removeClass('active')
+        })
+    });
+  }
   </script>
 </body>
 
