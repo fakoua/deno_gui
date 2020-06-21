@@ -40,4 +40,6 @@ Open: http://localhost:8080
 
 ## License
 
-[MIT](LICENSE)
+[MIT](LICENSE) [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffakoua%2Fdeno_gui.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Ffakoua%2Fdeno_gui?ref=badge_shield)
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Ffakoua%2Fdeno_gui.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Ffakoua%2Fdeno_gui?ref=badge_large)
