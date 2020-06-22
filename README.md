@@ -7,7 +7,7 @@ Deno Web GUI with REPL
 
 ## CLI Installation
 ```
-deno install -A --unstable -n deno_gui https://deno.land/x/deno_gui/gui.ts -f
+deno install -A --unstable -f -n deno_gui https://deno.land/x/deno_gui/gui.ts
 ```
 ## Run the server from CLI
 ```
