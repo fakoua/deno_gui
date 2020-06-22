@@ -83,5 +83,10 @@ let text = cow.say({
   text: urlText,
   cow: 'kitten'
 })
-console.log(text)
-await app.listen(`localhost:${argsv.port}`)
+
+export async function run() {
+  console.log(text)
+  await app.listen(`localhost:${argsv.port}`)
+}
+
+await run();

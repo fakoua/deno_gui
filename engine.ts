@@ -1,8 +1,10 @@
 import * as dejs from 'https://deno.land/x/dejs/mod.ts'
 import { ViewData } from './models/ViewData.ts'
 
-const { copy } = Deno;
-//import { template } from './views/home/dashboard.ts'
+import { title as dashboardTitle } from './views/components/dashboard.ts'
+import { title as aboutTitle } from './views/components/about.ts'
+import { title as consoleTitle } from './views/components/console.ts'
+import { title as depscachesTitle } from './views/components/depscaches.ts'
 
 export async function renderAsync(view: string, model: any): Promise<ViewData> {
     try {
