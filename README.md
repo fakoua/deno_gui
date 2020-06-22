@@ -14,10 +14,15 @@ deno install -A --unstable -f -n deno_gui https://deno.land/x/deno_gui/gui.ts
 deno_gui
 ``` 
 
+## Using dpx
+
+```
+dpx deno_gui -A --unstable --reload
+```
+
 ## Run the server from URL
 ```bash
 deno run -A --unstable https://deno.land/x/deno_gui/gui.ts
-//Default port is 8080
 ```
 
 ## Specify the port:
