@@ -231,7 +231,7 @@ export async function runDeno(command: string): Promise<string> {
     try {
         command = atob(command);
         let p = Deno.run({
-            cmd: ["deno", "eval", command],
+            cmd: ["deno", "eval", "--unstable", command],
             stdout: "piped",
             stderr: "piped"
         })
