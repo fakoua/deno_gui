@@ -20,6 +20,7 @@ export const onAfterRender = `
 inlineScript = function() {
     $("#btn-stop").click((e) => {
         e.preventDefault();
+        $("#btn-stop").addClass("loading");
         axios.get('/api/stop')
         .then((res) => {
             
