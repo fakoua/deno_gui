@@ -45,6 +45,8 @@ export const _layout_template = `
         <a data-route="depscaches" class="item">Deno Cache</a>
         <div class="ui fitted divider"></div>
         <a data-route="about" class="item">About</a>
+        <div class="ui fitted divider"></div>
+        <a data-route="stop" class="item">Stop Deno GUI</a>
       </div>
     </div>
   </div>
@@ -56,6 +58,8 @@ export const _layout_template = `
         <div class="ui hidden divider"></div>
         <a data-route="depscaches" class="item">Deno Cache</a>
         <a data-route="about" class="item">About</a>
+        <div class="ui fitted divider"></div>
+        <a data-route="stop" class="item">Stop Deno GUI</a>
       </div>
     </div>
     <div class="sixteen wide mobile thirteen wide tablet thirteen wide computer right floated column" id="content">
@@ -168,6 +172,7 @@ export const _layout_template = `
         process(editor.getValue())
         .then((res) => {
           term.clear();
+          term.writeln("");
           var ars = res.split("\\n");
           $.each(ars, function(index, value) {
             term.writeln(value);

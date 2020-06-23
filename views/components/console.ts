@@ -16,7 +16,7 @@ inlineScript = function() {
     term = new Terminal({
         cursorBlink: false,
         disableStdin: true,
-        rows: 15
+        rows: 20
     });
     term.open(document.getElementById('terminal'));
     term.prompt = () => {

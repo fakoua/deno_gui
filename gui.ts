@@ -57,6 +57,13 @@ router
   })
 
   //@ts-ignore
+  .get("/api/stop", async (context) => {
+    let folder = context.params.folder
+    context.response.headers.set("Content-Type", "application/json")
+    Deno.exit(0)
+  })
+
+  //@ts-ignore
   .get("/api/denolatest/", async (context) => {
     const version = await utils.fetchDenoVersion()
     context.response.headers.set("Content-Type", "application/json")
