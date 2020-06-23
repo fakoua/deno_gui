@@ -37,6 +37,13 @@ A Web interface for Deno
   <div class="item">
     <i class="globe icon"></i>
     <div class="content">
+      <a href="https://microsoft.github.io/monaco-editor/" target="_blank">Monaco Editor</a>: The Monaco Editor is the code editor that powers VS Code.
+    </div>
+  </div>
+
+  <div class="item">
+    <i class="globe icon"></i>
+    <div class="content">
       <a href="https://xtermjs.org/" target="_blank">Xterm.js</a>: A terminal for the web.
     </div>
   </div>
