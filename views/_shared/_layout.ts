@@ -134,6 +134,7 @@ export const _layout_template = `
     function initMonaco() {
       require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs' }});
       require(['vs/editor/editor.main'], function() {
+        monaco.languages.setLanguageConfiguration('typescript', {comments: {lineComment: '@@', blockComment: ['/*', '*/']}});
         monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
           allowJs: true,
           checkJs: true,
@@ -160,6 +161,7 @@ export const _layout_template = `
     function process(command) {
       return new Promise((resolve, reject) => {
           command = btoa(command)
+          command = encodeURIComponent(command)
           axios.get('/api/run/' + command)
           .then((res) => {
               resolve(res.data)
