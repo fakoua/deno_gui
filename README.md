@@ -7,7 +7,7 @@ Deno Web GUI with REPL
 
 ## CLI Installation
 ```
-deno install -A --unstable -f -n deno_gui https://deno.land/x/deno_gui/gui.ts
+deno install -A --unstable -f -n deno_gui https://deno.land/x/deno_gui/mod.ts
 ```
 ## Run the server from CLI
 ```
@@ -22,19 +22,19 @@ dpx deno_gui -A --unstable --reload
 
 ## Run the server from URL
 ```bash
-deno run -A --unstable https://deno.land/x/deno_gui/gui.ts
+deno run -A --unstable https://deno.land/x/deno_gui/mod.ts
 ```
 
 ## Specify the port:
 
 ```bash
-deno run -A --unstable https://deno.land/x/deno_gui/gui.ts -p=9000
+deno run -A --unstable https://deno.land/x/deno_gui/mod.ts -p=9000
 ```
 
 Or you can use --port=9000
 
 ```bash
-deno run -A --unstable https://deno.land/x/deno_gui/gui.ts --port=9000
+deno run -A --unstable https://deno.land/x/deno_gui/mod.ts --port=9000
 ```
 
 Open: http://localhost:8080
