@@ -1,4 +1,4 @@
-export const title = 'Stop Deno GUI'
+export const title = "Stop Deno GUI"
 export const body = `
 <div class="ui page dimmer" id="dim">
     <div class="content">

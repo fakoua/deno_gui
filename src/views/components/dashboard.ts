@@ -1,4 +1,4 @@
-export const title = 'Dashboard'
+export const title = "Dashboard"
 export const body = `
 <div class="ui grid" style="padding-right:10px;">
     <div class="sixteen wide column">

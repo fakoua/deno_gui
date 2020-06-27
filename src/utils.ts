@@ -1,14 +1,14 @@
 import * as path from "https://deno.land/std/path/mod.ts";
-import { OperatingSystem } from './models/OperatingSystem.ts';
-import { CacheFolder } from './models/CacheFolder.ts'
-import { KeyValuePair } from './models/KeyValuePair.ts'
-import { Folder, FileExplorer } from './models/Folder.ts'
+import { OperatingSystem } from "./models/OperatingSystem.ts";
+import { CacheFolder } from "./models/CacheFolder.ts"
+import { KeyValuePair } from "./models/KeyValuePair.ts"
+import { Folder, FileExplorer } from "./models/Folder.ts"
 import "https://deno.land/x/humanizer.ts/byteSize.ts"
 
 function listFolders(rootFolder: string): Array<CacheFolder> {
-    let rtnVal = new Array<CacheFolder>()
+    const rtnVal = new Array<CacheFolder>()
     for (const dirEntry of Deno.readDirSync(rootFolder)) {
-        let f: CacheFolder = {
+        const f: CacheFolder = {
             created: new Date(),
             name: dirEntry.name,
             path: rootFolder,
@@ -20,11 +20,11 @@ function listFolders(rootFolder: string): Array<CacheFolder> {
 }
 
 function getFoldersTree(p: string): Array<Folder> {
-    let folders: Array<Folder> = new Array<Folder>()
+    const folders: Array<Folder> = new Array<Folder>()
 
     for (const dirEntry of Deno.readDirSync(p)) {
         if (dirEntry.isDirectory) {
-            let folder: Folder = {
+            const folder: Folder = {
                 id: btoa(path.join(p, dirEntry.name)),
                 text: dirEntry.name,
                 children: []
@@ -41,7 +41,7 @@ enum OS {
 }
 
 function getOS(): OS {
-    //@ts-ignore
+    // @ts-ignore
     return OS[Deno.build.os];
 }
 
@@ -69,9 +69,9 @@ function sortByType(folders: Array<FileExplorer>): Array<FileExplorer> {
     })
 }
 
-//Exports
+// Exports
 export function getOsInfo(): OperatingSystem {
-    let rtnVal: OperatingSystem = {
+    const rtnVal: OperatingSystem = {
         arch: Deno.build.arch,
         currentPath: Deno.cwd(),
         denoPath: Deno.execPath(),
@@ -87,10 +87,10 @@ export function getOsInfo(): OperatingSystem {
 }
 
 export function getEnv(): Array<KeyValuePair<string>> {
-    let rtnVal: Array<KeyValuePair<string>> = new Array<KeyValuePair<string>>()
-    let env = Deno.env.toObject();
+    const rtnVal: Array<KeyValuePair<string>> = new Array<KeyValuePair<string>>()
+    const env = Deno.env.toObject();
     Object.keys(env).forEach((k) => {
-        let item: KeyValuePair<string> = {
+        const item: KeyValuePair<string> = {
             key: k, 
             value: env[k]
         }
@@ -106,9 +106,9 @@ export function getEnv(): Array<KeyValuePair<string>> {
  * - (/home/USERNAME/.cache/deno) on linux
  */
 export function getDenoDir(): string {
-    let os = getOS();
-    let homeKey: string = os == OS.windows ? 'USERPROFILE' : 'HOME'
-    let homeDir = Deno.env.get(homeKey)
+    const os = getOS();
+    const homeKey: string = os === OS.windows ? "USERPROFILE" : "HOME"
+    const homeDir = Deno.env.get(homeKey)
     let relativeDir = "";
 
     switch (os) {
@@ -122,27 +122,27 @@ export function getDenoDir(): string {
             relativeDir = "Library/Caches/deno"
             break;
     }
-    //@ts-ignore
+    // @ts-ignore
     return path.join(homeDir, relativeDir)
 }
 
 export function getDepsCacheDir(): string {
-    let homeDir = getDenoDir()
-    return path.join(homeDir, 'deps/https/')
+    const homeDir = getDenoDir()
+    return path.join(homeDir, "deps/https/")
 }
 
 export function getTypeScriptCacheDirLocal(): string {
-    let homeDir = getDenoDir()
-    return path.join(homeDir, 'gen/file')
+    const homeDir = getDenoDir()
+    return path.join(homeDir, "gen/file")
 }
 
 export function getTypeScriptCacheDirRemote(): string {
-    let homeDir = getDenoDir()
-    return path.join(homeDir, 'gen/https')
+    const homeDir = getDenoDir()
+    return path.join(homeDir, "gen/https")
 }
 
 export function listDepsFolders(): Array<CacheFolder> {
-    let rootFolder = getDepsCacheDir()
+    const rootFolder = getDepsCacheDir()
     return listFolders(rootFolder)
 }
 
@@ -152,7 +152,7 @@ export async function deleteFolder(folder: string): Promise<any> {
         await Deno.remove(folder, { recursive: true })
         return {
             success: true,
-            error: ''
+            error: ""
         }
     } catch (error) {
         return {
@@ -165,7 +165,7 @@ export async function deleteFolder(folder: string): Promise<any> {
 export async function runDeno(command: string): Promise<string> {
     try {
         command = atob(command);
-        let p = Deno.run({
+        const p = Deno.run({
             cmd: ["deno", "eval", "--unstable", command],
             stdout: "piped",
             stderr: "piped"
@@ -190,14 +190,14 @@ export async function runDeno(command: string): Promise<string> {
 
 export async function fetchDenoVersion(): Promise<string> {
     try {
-        let response = await fetch('https://github.com/denoland/deno/releases/latest')
-        let body = await response.text()
+        const response = await fetch("https://github.com/denoland/deno/releases/latest")
+        const body = await response.text()
         const regVer = new RegExp(/title\=\"v(.*)?\"/)
-        let res = regVer.exec(body)
-        //@ts-ignore
+        const res = regVer.exec(body)
+        // @ts-ignore
         return res[1]
     } catch (error) {
-        return 'Error fetching'
+        return "Error fetching"
     }
 
 }
@@ -212,11 +212,11 @@ export function getFiles(root: string): Array<FileExplorer> {
     let folders: Array<FileExplorer> = new Array<FileExplorer>()
 
     for (const element of Deno.readDirSync(root)) {
-        let folder: FileExplorer = {
+        const folder: FileExplorer = {
             id: btoa(path.join(root, element.name)),
             isFile: element.isFile,
             name: element.name,
-            size: element.isFile ? '' : ''
+            size: element.isFile ? "" : ""
         }
         folders.push(folder)
     }

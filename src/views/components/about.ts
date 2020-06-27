@@ -1,4 +1,4 @@
-export const title = 'About Deno GUI'
+export const title = "About Deno GUI"
 export const body = `
 <h3>Deno GUI</h3>
 A Web interface for Deno

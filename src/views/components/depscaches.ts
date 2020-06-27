@@ -1,4 +1,4 @@
-export const title = 'Deno Cache'
+export const title = "Deno Cache"
 export const body = `
 <div class="ui grid">
     <div class="four wide column">
