@@ -1,5 +1,5 @@
 import * as engine from './engine.ts'
-import { assertEquals } from './test_deps.ts'
+import { assertEquals } from '../test_deps.ts'
 
 Deno.test("test_engine_render", async function () {
     let result = await engine.renderAsync('generic', {id:1});

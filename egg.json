@@ -2,7 +2,7 @@
     "name": "deno_gui",
     "description": "Deno Web GUI",
     "stable": true,
-    "version": "2.0.4",
+    "version": "2.0.5",
     "files": [
         "./mod.ts",
         "./controllers.ts",

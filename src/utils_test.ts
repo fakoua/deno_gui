@@ -1,5 +1,5 @@
 import * as utils from './utils.ts'
-import { assert } from './test_deps.ts'
+import { assert } from '../test_deps.ts'
 
 Deno.test("test_utils_getOs", function () {
     assert(utils.getOsInfo().os.length>2)
