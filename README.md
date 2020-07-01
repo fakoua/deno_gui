@@ -1,6 +1,6 @@
 # Deno GUI
 
-Deno Web GUI with REPL
+Deno Web GUI with REPL.
 
 [![Build Status](https://api.travis-ci.com/fakoua/deno_gui.svg?branch=master)](https://travis-ci.com/fakoua/deno_gui)
 [![Build Status](https://github.com/fakoua/deno_gui/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/fakoua/deno_gui/actions)
