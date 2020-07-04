@@ -2,8 +2,10 @@
 
 Deno Web GUI with REPL.
 
-[![Build Status](https://api.travis-ci.com/fakoua/deno_gui.svg?branch=master)](https://travis-ci.com/fakoua/deno_gui)
-[![Build Status](https://github.com/fakoua/deno_gui/workflows/CI/badge.svg?branch=master&event=push)](https://github.com/fakoua/deno_gui/actions)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/fakoua/deno_gui?style=for-the-badge)
+![GitHub](https://img.shields.io/github/license/fakoua/deno_gui?style=for-the-badge)
+![GitHub last commit](https://img.shields.io/github/last-commit/fakoua/deno_gui?style=for-the-badge)
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/fakoua/deno_gui/Deno%20CI?style=for-the-badge)
 
 ## CLI Installation
 ```
