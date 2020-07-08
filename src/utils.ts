@@ -216,7 +216,7 @@ export function getFiles(root: string): Array<FileExplorer> {
             id: btoa(path.join(root, element.name)),
             isFile: element.isFile,
             name: element.name,
-            size: element.isFile ? "" : ""
+            size: ""
         }
         folders.push(folder)
     }

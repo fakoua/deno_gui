@@ -58,7 +58,6 @@ router
 
   // @ts-ignore
   .get("/api/stop", async (context) => {
-    const folder = context.params.folder
     context.response.headers.set("Content-Type", "application/json")
     Deno.exit(0)
   })
