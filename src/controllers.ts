@@ -1,5 +1,5 @@
 import * as utils from "./utils.ts"
-import startCase from "https://deno.land/x/lodash/startCase.js"
+import startCase from "https://deno.land/x/lodash@4.17.15-es/startCase.js"
 
 export function getModel(action: string): any {
     try {
