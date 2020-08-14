@@ -3,7 +3,7 @@ import { OperatingSystem } from "./models/OperatingSystem.ts";
 import { CacheFolder } from "./models/CacheFolder.ts"
 import { KeyValuePair } from "./models/KeyValuePair.ts"
 import { Folder, FileExplorer } from "./models/Folder.ts"
-import "https://deno.land/x/humanizer.ts/byteSize.ts"
+import "https://deno.land/x/humanizer/byteSize.ts"
 
 function listFolders(rootFolder: string): Array<CacheFolder> {
     const rtnVal = new Array<CacheFolder>()

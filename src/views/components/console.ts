@@ -22,7 +22,7 @@ export const body = `
          </div>
          <div class="item">
             <i class="dropdown icon"></i>
-            Humanizer.ts
+            Humanizer
             <div class="menu">
                <div class="item" data-index="4">ByteSize</div>
                <div class="item" data-index="5">ByteSize (extension)</div>
@@ -96,7 +96,7 @@ if (res) {
 
 <div data-example="4" style="display:none;">
 // ByteSize
-import "https://deno.land/x/humanizer.ts/byteSize.ts"
+import "https://deno.land/x/humanizer/byteSize.ts"
 
 let fileSize = (10).kilobytes()
 console.log(fileSize.bits)          //  81920
@@ -109,14 +109,14 @@ console.log(fileSize.terabytes)     //  9.313225746154785e-9
 
 <div data-example="5" style="display:none;">
 // ByteSize
-import "https://deno.land/x/humanizer.ts/byteSize.ts"
+import "https://deno.land/x/humanizer/byteSize.ts"
 
 let f = (4).gigabytes().add((22).megabytes()).subtract((980).kilobytes()).addGigabytes(1)
 console.log(f.toString()) // - 5.020549774169922 GB
 </div>
 
 <div data-example="6" style="display:none;">
-import "https://deno.land/x/humanizer.ts/vocabularies.ts"
+import "https://deno.land/x/humanizer/vocabularies.ts"
 
 console.log("Man".pluralize())
 console.log("string".pluralize())
@@ -128,14 +128,14 @@ console.log("strings".singularize())
 </div>
 
 <div data-example="7" style="display:none;">
-import "https://deno.land/x/humanizer.ts/ordinalize.ts"
+import "https://deno.land/x/humanizer/ordinalize.ts"
 
 console.log((1).ordinalize())
 console.log((5).ordinalize())
 </div>
 
 <div data-example="8" style="display:none;">
-import { ShowQuantityAs } from "https://deno.land/x/humanizer.ts/toQuantity.ts"
+import { ShowQuantityAs } from "https://deno.land/x/humanizer/toQuantity.ts"
 
 console.log("case".toQuantity(0))
 console.log("case".toQuantity(1))
@@ -163,14 +163,14 @@ console.log("case".toQuantity(5, ShowQuantityAs.None))
 </div>
 
 <div data-example="9" style="display:none;">
-import "https://deno.land/x/humanizer.ts/numberToNumbers.ts"
+import "https://deno.land/x/humanizer/numberToNumbers.ts"
 
 console.log((1.25).billions())
 console.log((3).hundreds().thousands())
 </div>
 
 <div data-example="10" style="display:none;">
-import "https://deno.land/x/humanizer.ts/numberToWords.ts"
+import "https://deno.land/x/humanizer/numberToWords.ts"
 
 console.log((1).toWords())
 console.log((10).toWords())
@@ -180,7 +180,7 @@ console.log((3501).toWords())
 </div>
 
 <div data-example="11" style="display:none;">
-import "https://deno.land/x/humanizer.ts/numberToWords.ts"
+import "https://deno.land/x/humanizer/numberToWords.ts"
 
 console.log((0).toOrdinalWords())
 console.log((1).toOrdinalWords())
@@ -195,7 +195,7 @@ console.log((121).toOrdinalWords())
 </div>
 
 <div data-example="12" style="display:none;">
-import "https://deno.land/x/humanizer.ts/romanNumerals.ts"
+import "https://deno.land/x/humanizer/romanNumerals.ts"
 
 console.log((1).toRoman())
 console.log((2).toRoman())
@@ -218,7 +218,7 @@ console.log("V".fromRoman())
 </div>
 
 <div data-example="13" style="display:none;">
-import "https://deno.land/x/humanizer.ts/metricNumerals.ts"
+import "https://deno.land/x/humanizer/metricNumerals.ts"
 
 console.log((1).toMetric())
 console.log((1230).toMetric())
