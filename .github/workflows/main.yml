@@ -10,7 +10,7 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     strategy:
       matrix:
-        os: [macOS-latest, ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, windows-latest]
     env:
       GH_ACTIONS: true
       DENO_BUILD_MODE: release
