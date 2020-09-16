@@ -1,8 +1,8 @@
 import * as path from "https://deno.land/std/path/mod.ts";
-import { OperatingSystem } from "./models/OperatingSystem.ts";
-import { CacheFolder } from "./models/CacheFolder.ts"
-import { KeyValuePair } from "./models/KeyValuePair.ts"
-import { Folder, FileExplorer } from "./models/Folder.ts"
+import type { OperatingSystem } from "./models/OperatingSystem.ts";
+import type { CacheFolder } from "./models/CacheFolder.ts"
+import type { KeyValuePair } from "./models/KeyValuePair.ts"
+import type { Folder, FileExplorer } from "./models/Folder.ts"
 import "https://deno.land/x/humanizer/byteSize.ts"
 
 function listFolders(rootFolder: string): Array<CacheFolder> {

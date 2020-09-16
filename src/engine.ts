@@ -1,5 +1,5 @@
 import * as dejs from "https://deno.land/x/dejs/mod.ts"
-import { ViewData } from "./models/ViewData.ts"
+import type { ViewData } from "./models/ViewData.ts"
 
 import { title as dashboardTitle } from "./views/components/dashboard.ts"
 import { title as aboutTitle } from "./views/components/about.ts"
