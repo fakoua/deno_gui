@@ -1,4 +1,2 @@
 tasks:
-  - before: chmod 777 ./init.sh
-  - init: ./init.sh
-  - command: deno --version
+  - command: curl -fsSL https://deno.land/x/install/install.sh | sh && DENO_INSTALL="/home/gitpod/.deno" && PATH="$DENO_INSTALL/bin:$PATH" && deno --version
