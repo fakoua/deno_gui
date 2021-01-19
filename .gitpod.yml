@@ -1,3 +1,4 @@
 tasks:
-  - before: ./init.sh
+  - before: chmod 777 ./init.sh
+  - init: ./init.sh
   - command: deno --version
