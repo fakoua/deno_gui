@@ -1,2 +1,5 @@
 tasks:
   - command: curl -fsSL https://deno.land/x/install/install.sh | sh && DENO_INSTALL="/home/gitpod/.deno" && PATH="$DENO_INSTALL/bin:$PATH" && deno run -A --unstable ./mod.ts
+ports:
+  - port: 8000
+    onOpen: open-preview
