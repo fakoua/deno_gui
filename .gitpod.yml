@@ -1,3 +1,5 @@
 tasks:
-  - init: 'echo "TODO: Replace with init/build command"'
-    command: 'echo "TODO: Replace with command to start project"'
+  - init: 'echo "Starting deno_gui"'
+    command: curl -fsSL https://deno.land/x/install/install.sh | sh
+    command: export DENO_INSTALL="/home/gitpod/.deno"
+    command: export PATH="$DENO_INSTALL/bin:$PATH"
