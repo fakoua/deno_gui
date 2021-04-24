@@ -13,21 +13,18 @@ export async function renderAsync(view: string, model: any): Promise<ViewData> {
         const output = await dejs.render(template.body, model)
         const dataArray = await Deno.readAll(output)
         const body = new TextDecoder().decode(dataArray);
-        const result: ViewData = {
+        return {
             title: template.title,
             onBeforeRender: template.onBeforeRender,
             onAfterRender: template.onAfterRender,
             body: body
-        }
-        return result;        
+        };        
     } catch (error) {
-        const result: ViewData = {
+        return {
             title: "Error",
             onBeforeRender: "",
             onAfterRender: "",
             body: "Not Found Or Internal Error."
         }
-        console.log(error)
-        return result
     }
 }
