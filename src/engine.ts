@@ -1,10 +1,10 @@
 import * as dejs from "https://deno.land/x/dejs/mod.ts"
 import type { ViewData } from "./models/ViewData.ts"
 
-import { title as dashboardTitle } from "./views/components/dashboard.ts"
-import { title as aboutTitle } from "./views/components/about.ts"
-import { title as consoleTitle } from "./views/components/console.ts"
-import { title as depscachesTitle } from "./views/components/depscaches.ts"
+import { title as dashboardTitle } from "./views/components/dashboard.ts" // NOSONAR
+import { title as aboutTitle } from "./views/components/about.ts" // NOSONAR
+import { title as consoleTitle } from "./views/components/console.ts" // NOSONAR
+import { title as depscachesTitle } from "./views/components/depscaches.ts" // NOSONAR
 
 export async function renderAsync(view: string, model: any): Promise<ViewData> {
     try {
