@@ -71,7 +71,7 @@ function sortByType(folders: Array<FileExplorer>): Array<FileExplorer> {
 
 // Exports
 export function getOsInfo(): OperatingSystem {
-    const rtnVal: OperatingSystem = {
+    return {
         arch: Deno.build.arch,
         currentPath: Deno.cwd(),
         denoPath: Deno.execPath(),
@@ -81,9 +81,7 @@ export function getOsInfo(): OperatingSystem {
         os: Deno.build.os,
         typescriptVersion: Deno.version.typescript,
         v8Version: Deno.version.v8
-    }
-
-    return rtnVal;
+    };
 }
 
 export function getEnv(): Array<KeyValuePair<string>> {
