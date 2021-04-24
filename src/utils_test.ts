@@ -6,9 +6,9 @@ Deno.test("test_utils_getOs", function () {
 })
 
 Deno.test("test_utils_getDirInfo", function () {
-    assert(utils.getDenoDir().indexOf("deno") > 0)
+    assert(utils.getDenoDir().includes("deno"))
 })
 
 Deno.test("test_utils_getTypeScriptCacheDirLocal", function () {
-    assert(utils.getTypeScriptCacheDirLocal().indexOf("gen") > 0)
+    assert(utils.getTypeScriptCacheDirLocal().includes("gen"))
 })
