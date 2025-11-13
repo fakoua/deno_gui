@@ -1,4 +1,4 @@
-export const title = "Stop Deno GUI"
+export const title = "Stop Deno GUI";
 export const body = `
 <div class="ui page dimmer" id="dim">
     <div class="content">
@@ -14,8 +14,8 @@ export const body = `
         Stop Deno GUI
     </button>
 </div>
-`
-export const onBeforeRender = ``
+`;
+export const onBeforeRender = ``;
 export const onAfterRender = `
 inlineScript = function() {
     $("#btn-stop").click((e) => {
@@ -23,7 +23,7 @@ inlineScript = function() {
         $("#btn-stop").addClass("loading");
         axios.get('/api/stop')
         .then((res) => {
-            
+
         })
         .catch((error) => {
         })
@@ -32,4 +32,4 @@ inlineScript = function() {
         })
     })
 }
-`
+`;

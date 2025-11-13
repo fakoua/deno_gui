@@ -1,4 +1,4 @@
-export const title = "Dashboard"
+export const title = "Dashboard";
 export const body = `
 <div class="ui grid" style="padding-right:10px;">
     <div class="sixteen wide column">
@@ -92,8 +92,8 @@ export const body = `
         <!-- Column 02 End -->
     </div>
 </div>
-`
-export const onBeforeRender = ``
+`;
+export const onBeforeRender = ``;
 export const onAfterRender = `
 inlineScript = function() {
    axios.get('/api/denolatest/')
@@ -101,4 +101,4 @@ inlineScript = function() {
       $('#denolatest').html(res.data)
     })
 }
-`
+`;

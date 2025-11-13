@@ -1,26 +1,26 @@
 import * as path from "https://deno.land/std/path/mod.ts";
 import type { OperatingSystem } from "./models/OperatingSystem.ts";
-import type { CacheFolder } from "./models/CacheFolder.ts"
-import type { KeyValuePair } from "./models/KeyValuePair.ts"
-import type { Folder, FileExplorer } from "./models/Folder.ts"
-import "https://deno.land/x/humanizer/byteSize.ts"
+import type { CacheFolder } from "./models/CacheFolder.ts";
+import type { KeyValuePair } from "./models/KeyValuePair.ts";
+import type { Folder, FileExplorer } from "./models/Folder.ts";
+import "https://deno.land/x/humanizer/byteSize.ts";
 
 function listFolders(rootFolder: string): Array<CacheFolder> {
-    const rtnVal = new Array<CacheFolder>()
+    const rtnVal = new Array<CacheFolder>();
     for (const dirEntry of Deno.readDirSync(rootFolder)) {
         const f: CacheFolder = {
             created: new Date(),
             name: dirEntry.name,
             path: rootFolder,
             id: btoa(path.join(rootFolder, dirEntry.name))
-        }
-        rtnVal.push(f)
+        };
+        rtnVal.push(f);
     }
-    return rtnVal.slice(0, 20)
+    return rtnVal.slice(0, 20);
 }
 
 function getFoldersTree(p: string): Array<Folder> {
-    const folders: Array<Folder> = new Array<Folder>()
+    const folders: Array<Folder> = new Array<Folder>();
 
     for (const dirEntry of Deno.readDirSync(p)) {
         if (dirEntry.isDirectory) {
@@ -28,9 +28,9 @@ function getFoldersTree(p: string): Array<Folder> {
                 id: btoa(path.join(p, dirEntry.name)),
                 text: dirEntry.name,
                 children: []
-            }
-            folders.push(folder)
-            folder.children = getFoldersTree(path.join(p, dirEntry.name))
+            };
+            folders.push(folder);
+            folder.children = getFoldersTree(path.join(p, dirEntry.name));
         }
     }
     return folders;
@@ -41,32 +41,31 @@ enum OS {
 }
 
 function getOS(): OS {
-    // @ts-ignore
-    return OS[Deno.build.os];
+    return OS[Deno.build.os as keyof typeof OS];
 }
 
 function sortByName(folders: Array<FileExplorer>): Array<FileExplorer> {
     return folders.sort((f1, f2) => {
             if (f1.name > f2.name) {
-                return 1
+                return 1;
             }
             if (f1.name < f2.name) {
-                return -1
+                return -1;
             }
-            return 0
-        })
+            return 0;
+        });
 }
 
 function sortByType(folders: Array<FileExplorer>): Array<FileExplorer> {
     return folders.sort((f1, f2) => {
         if (f1.isFile) {
-            return 1
+            return 1;
         }
         if (f2.isFile) {
-            return -1
+            return -1;
         }
-        return 0
-    })
+        return 0;
+    });
 }
 
 // Exports
@@ -85,78 +84,77 @@ export function getOsInfo(): OperatingSystem {
 }
 
 export function getEnv(): Array<KeyValuePair<string>> {
-    const rtnVal: Array<KeyValuePair<string>> = new Array<KeyValuePair<string>>()
+    const rtnVal: Array<KeyValuePair<string>> = new Array<KeyValuePair<string>>();
     const env = Deno.env.toObject();
     Object.keys(env).forEach((k) => {
         const item: KeyValuePair<string> = {
-            key: k, 
+            key: k,
             value: env[k]
-        }
-        rtnVal.push(item)
-    })
-    return rtnVal
+        };
+        rtnVal.push(item);
+    });
+    return rtnVal;
 }
 
 /**
- * Returs deno root directory
+ * Returns deno root directory
  * Example:
  * - (C:\Users\USERNAME\AppData\Local\deno) on windows
  * - (/home/USERNAME/.cache/deno) on linux
  */
 export function getDenoDir(): string {
     const os = getOS();
-    const homeKey: string = os === OS.windows ? "USERPROFILE" : "HOME"
-    const homeDir = Deno.env.get(homeKey)
+    const homeKey: string = os === OS.windows ? "USERPROFILE" : "HOME";
+    const homeDir = Deno.env.get(homeKey);
     let relativeDir = "";
 
     switch (os) {
         case OS.windows:
-            relativeDir = "AppData/Local/deno"
+            relativeDir = "AppData/Local/deno";
             break;
         case OS.linux:
-            relativeDir = ".cache/deno"
+            relativeDir = ".cache/deno";
             break;
         case OS.darwin:
-            relativeDir = "Library/Caches/deno"
+            relativeDir = "Library/Caches/deno";
             break;
     }
-    // @ts-ignore
-    return path.join(homeDir, relativeDir)
+    return path.join(homeDir as string, relativeDir);
 }
 
 export function getDepsCacheDir(): string {
-    const homeDir = getDenoDir()
-    return path.join(homeDir, "deps/https/")
+    const homeDir = getDenoDir();
+    return path.join(homeDir, "deps/https/");
 }
 
 export function getTypeScriptCacheDirLocal(): string {
-    const homeDir = getDenoDir()
-    return path.join(homeDir, "gen/file")
+    const homeDir = getDenoDir();
+    return path.join(homeDir, "gen/file");
 }
 
 export function getTypeScriptCacheDirRemote(): string {
-    const homeDir = getDenoDir()
-    return path.join(homeDir, "gen/https")
+    const homeDir = getDenoDir();
+    return path.join(homeDir, "gen/https");
 }
 
 export function listDepsFolders(): Array<CacheFolder> {
-    const rootFolder = getDepsCacheDir()
-    return listFolders(rootFolder)
+    const rootFolder = getDepsCacheDir();
+    return listFolders(rootFolder);
 }
 
 export async function deleteFolder(folder: string): Promise<any> {
     try {
-        folder = atob(folder)
-        await Deno.remove(folder, { recursive: true })
+        folder = atob(folder);
+        await Deno.remove(folder, { recursive: true });
         return {
             success: true,
             error: ""
-        }
+        };
     } catch (error) {
         return {
             success: false,
             error: error
-        }
+        };
     }
 }
 
@@ -167,14 +165,14 @@ export async function runDeno(command: string): Promise<string> {
             cmd: ["deno", "eval", "--unstable", command],
             stdout: "piped",
             stderr: "piped"
-        })
+        });
 
         const { code } = await p.status();
 
         let res: string;
         if (code === 0) {
             const rawOutput = await p.output();
-            res = new TextDecoder("utf-8").decode(rawOutput)
+            res = new TextDecoder("utf-8").decode(rawOutput);
         } else {
             const rawError = await p.stderrOutput();
             res = new TextDecoder().decode(rawError);
@@ -188,26 +186,24 @@ export async function runDeno(command: string): Promise<string> {
 
 export async function fetchDenoVersion(): Promise<string> {
     try {
-        const response = await fetch("https://github.com/denoland/deno/releases/latest")
-        const body = await response.text()
-        const regVer = new RegExp(/title\=\"v(.*)?\"/)
-        const res = regVer.exec(body)
-        // @ts-ignore
-        return res[1]
+        const response = await fetch("https://github.com/denoland/deno/releases/latest");
+        const body = await response.text();
+        const regVer = new RegExp(/title\=\"v(.*)?"/);
+        const res = regVer.exec(body);
+        return res?.[1] ?? "Unknown";
     } catch (error) {
-        return "Error fetching"
+        return "Error fetching";
     }
-
 }
 
 export function getCacheTree(): Array<Folder> {
-    const p = getDenoDir()
+    const p = getDenoDir();
     return getFoldersTree(p);
 }
 
 export function getFiles(root: string): Array<FileExplorer> {
-    root = atob(root)
-    let folders: Array<FileExplorer> = new Array<FileExplorer>()
+    root = atob(root);
+    let folders: Array<FileExplorer> = new Array<FileExplorer>();
 
     for (const element of Deno.readDirSync(root)) {
         const folder: FileExplorer = {
@@ -215,11 +211,11 @@ export function getFiles(root: string): Array<FileExplorer> {
             isFile: element.isFile,
             name: element.name,
             size: ""
-        }
-        folders.push(folder)
+        };
+        folders.push(folder);
     }
-    
-    folders = sortByName(folders)
-    folders = sortByType(folders)
-    return folders
+
+    folders = sortByName(folders);
+    folders = sortByType(folders);
+    return folders;
 }

@@ -1,4 +1,4 @@
-export const title = "Web REPL"
+export const title = "Web REPL";
 export const body = `
 <div id="ts-container" style="width:100%;height:400px;border:1px solid #dddd"></div>
 <div class="fluid">
@@ -329,8 +329,8 @@ console.log(result);
 
 </div>
 
-`
-export const onBeforeRender = ``
+`;
+export const onBeforeRender = ``;
 export const onAfterRender = `
 inlineScript = function() {
     $('.ui.dropdown').dropdown({
@@ -354,4 +354,4 @@ inlineScript = function() {
     term.writeln('Welcome to Deno Terminal');
     term.prompt(term);
 }
-`
+`;

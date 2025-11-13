@@ -1,0 +1,28 @@
+{
+  "lint": {
+    "rules": {
+      "tags": ["recommended"],
+      "include": ["ban-untagged-todo"]
+    },
+    "exclude": [
+      "node_modules"
+    ]
+  },
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 140,
+    "indentWidth": 2,
+    "semiColons": true,
+    "singleQuote": false,
+    "proseWrap": "preserve",
+    "exclude": [
+      "node_modules"
+    ]
+  },
+  "tasks": {
+    "dev": "deno run --allow-all mod.ts",
+    "lint": "deno lint",
+    "fmt": "deno fmt",
+    "fmt:check": "deno fmt --check"
+  }
+}

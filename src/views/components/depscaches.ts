@@ -1,4 +1,4 @@
-export const title = "Deno Cache"
+export const title = "Deno Cache";
 export const body = `
 <div class="ui grid">
     <div class="four wide column">
@@ -39,8 +39,8 @@ export const body = `
       </div>
     </div>
 </div>
-`
-export const onBeforeRender = ``
+`;
+export const onBeforeRender = ``;
 export const onAfterRender = `
 inlineScript = function() {
     $('.ui.dimmer.modals').remove()
@@ -147,4 +147,4 @@ inlineScript = function() {
     });
 
 }
-`
+`;
